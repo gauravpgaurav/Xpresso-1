@@ -1,0 +1,1 @@
+Image and other common files/assets will come here

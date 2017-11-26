@@ -1,0 +1,21 @@
+{
+  "author": "HCI Group 7",
+  "name": "Xpresso",
+  "version": "0.0.1",
+  "homepage": "https://bitbucket.org/hcifall17uicgroup7/xpresso/overview",
+  "licenses": {},
+  "bugs": "",
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:hcifall17uicgroup7/xpresso.git"
+  },
+  "main": "server.js",
+  "dependencies": {
+    "body-parser": "~1.4.2",
+    "express": "~4.5.1",
+    "http-server": "^0.10.0",
+    "method-override": "~2.0.2",
+    "mongoose": "~3.8.0"
+  },
+  "devDependencies": {}
+}
