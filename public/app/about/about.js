@@ -1,6 +1,5 @@
-angular.module( 'ngBoilerplate.about', [
+angular.module( 'xpresso.about', [
   'ui.router',
-  'placeholders',
   'ui.bootstrap'
 ])
 
@@ -10,7 +9,7 @@ angular.module( 'ngBoilerplate.about', [
     views: {
       "main": {
         controller: 'AboutCtrl',
-        templateUrl: 'about/about.tpl.html'
+        templateUrl: 'app/about/about.tpl.html'
       }
     },
     data:{ pageTitle: 'What is It?' }
@@ -24,6 +23,4 @@ angular.module( 'ngBoilerplate.about', [
     "And another choice for you.",
     "but wait! A third!"
   ];
-})
-
-;
+});

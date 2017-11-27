@@ -1,8 +1,6 @@
-angular.module( 'ngBoilerplate', [
-  'templates-app',
-  'templates-common',
-  'ngBoilerplate.home',
-  'ngBoilerplate.about',
+angular.module( 'xpresso', [
+  'xpresso.home',
+  'xpresso.about',
   'ui.router'
 ])
 
@@ -20,7 +18,4 @@ angular.module( 'ngBoilerplate', [
       $scope.pageTitle = toState.data.pageTitle + ' | Xpresso' ;
     }
   });
-})
-
-;
-
+});
