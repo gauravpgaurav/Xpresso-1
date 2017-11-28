@@ -1,26 +1,18 @@
-angular.module( 'xpresso.about', [
-  'ui.router',
-  'ui.bootstrap'
-])
+(function() {
+  'use strict';
 
-.config(function config( $stateProvider ) {
-  $stateProvider.state( 'about', {
-    url: '/about',
-    views: {
-      "main": {
-        controller: 'AboutCtrl',
-        templateUrl: 'app/about/about.tpl.html'
-      }
-    },
-    data:{ pageTitle: 'What is It?' }
-  });
-})
+  angular
+    .module('xpresso.about', [
+      'ui.router',
+      'ui.bootstrap',
+      'xpresso.about.services',
+      'xpresso.about.controllers'
+    ]);
 
-.controller( 'AboutCtrl', function AboutCtrl( $scope ) {
-  // This is simple a demo for UI Boostrap.
-  $scope.dropdownDemoItems = [
-    "The first choice!",
-    "And another choice for you.",
-    "but wait! A third!"
-  ];
-});
+  angular
+    .module('xpresso.about.services', []);
+
+  angular
+    .module('xpresso.about.controllers', []);
+
+})();

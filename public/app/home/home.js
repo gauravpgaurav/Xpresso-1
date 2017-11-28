@@ -1,20 +1,17 @@
+(function() {
+  'use strict';
 
-angular.module( 'xpresso.home', [
-  'ui.router'
-])
+  angular
+    .module('xpresso.home', [
+      'ui.router',
+      'xpresso.home.services',
+      'xpresso.home.controllers'
+    ]);
 
-.config(function config( $stateProvider ) {
-  $stateProvider.state( 'home', {
-    url: '/home',
-    views: {
-      "main": {
-        controller: 'HomeCtrl',
-        templateUrl: 'app/home/home.tpl.html'
-      }
-    },
-    data:{ pageTitle: 'Home' }
-  });
-})
+  angular
+    .module('xpresso.home.services', []);
 
-.controller( 'HomeCtrl', function HomeController( $scope ) {
-});
+  angular
+    .module('xpresso.home.controllers', []);
+    
+})();
