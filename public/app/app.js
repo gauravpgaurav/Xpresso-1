@@ -1,21 +1,21 @@
-angular.module( 'xpresso', [
-  'xpresso.home',
-  'xpresso.about',
-  'ui.router'
-])
+angular
+  .module('xpresso', [
+    'xpresso.routes',
+    'xpresso.config',
+    'xpresso.home',
+    'xpresso.about'
+  ]);
 
-.config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
-  $urlRouterProvider.otherwise( '/home' );
-})
+angular
+  .module('xpresso.routes', ['ui.router']);
 
-.run( function run () {
-})
+angular
+  .module('xpresso.config', []);
 
-.controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
-  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
-    $scope.pageTitle = 'Xpresso' ;
-    if ( angular.isDefined( toState.data.pageTitle ) ) {
-      $scope.pageTitle = toState.data.pageTitle + ' | Xpresso' ;
-    }
-  });
-});
+angular
+  .module('xpresso')
+  .run(run);
+
+function run() {
+  console.log("Brewing Xpresso");
+}
