@@ -12,20 +12,25 @@
   height: 95%;
   width: 30%;
 }
+.left-panel-head {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid black;
+}
 .left-panel-sec1 {
   position: relative;
   top: 0%;
-  background-color: blue;
+  background-color: white;
   height: 30%;
 }
 .left-panel-sec2 {
   top: 40%;
-  background-color: red;
+  background-color: white;
   height: 30%;
 }
 .left-panel-sec3 {
   top: 70%;
-  background-color: green;
+  background-color: white;
   height: 30%;
 }
 .center-panel {
@@ -34,7 +39,7 @@
   left: 32%;
   top: 7%;
   height: 90%;
-  background-color: yellow;
+  background-color: grey;
   overflow-x: scroll;
 }
 .center-panel .container {
@@ -46,7 +51,7 @@
   right: 0%;
   top: 7%;
   height: 90%;
-  background-color: yellow;
+  background-color: grey;
 }
 .progress-bar-vertical {
     width: 20px;
@@ -55,7 +60,7 @@
     float: right;
     position: absolute;
     right: 0%;
-	display: -webkit-box;
+	  display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
@@ -69,4 +74,5 @@
   -webkit-transition: height 0.6s ease;
   -o-transition: height 0.6s ease;
   transition: height 0.6s ease;
+  background-color: grey;
 }
