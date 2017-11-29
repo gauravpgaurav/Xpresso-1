@@ -35,38 +35,41 @@
     <base href="/" />
   </head>
   <body>
-    <div class="container">
-      <div class="navbar navbar-default">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" ng-init="menuCollapsed = true" ng-click="menuCollapsed = ! menuCollapsed">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <div class="navbar-brand">
-            Xpresso
-          </div>
+
+    <div class="container-fluid">
+      <div class='row navbar navbar-default'>
+        <div class='col-md-1 navbar-brand text-center'>Xpresso</div>
+        <div class='col-md-1 navbar-brand btn text-center'>
+          <span href ui-sref="home"><i class="fa fa-home"></i> Home</span>
         </div>
-        <div class="collapse navbar-collapse" collapse="menuCollapsed">
-          <ul class="nav navbar-nav">
-            <li ui-sref-active="active">
-              <a href ui-sref="home">
-                <i class="fa fa-home"></i>
-                Home
-              </a>
-            </li>
-            <li ui-sref-active="active">
-              <a href ui-sref="about">
-                <i class="fa fa-info-circle"></i>
-                What is it?
-              </a>
-            </li>
-          </ul>
+        <div class='col-md-1 navbar-brand btn text-center'>
+          <span href ui-sref="about"><i class="fa fa-info-circle"></i> What is it?</span>
         </div>
+        <div class='col-md-7'></div>
+        <div class='col-md-1 navbar-brand btn text-center'>Summary</div>
+        <div class='col-md-1 navbar-brand btn text-center'>Close</div>
+      </div>
+      <div class='left-panel'>
+        <div class='left-panel-sec1'>
+          <!-- Clock - timer -->
+          <div class='h1 text-center'>Clock - Timer</div>
+        </div>
+        <div class='left-panel-sec2'>
+          <!-- Topics pending panel -->
+          <div class='h1 text-center'>Topic Pending</div>
+        </div>
+        <div class='left-panel-sec3'>
+          <!-- Topics finished panel -->
+          <div class='h1 text-center'>Topic Finished</div>
+        </div>
+      </div>
+      <div class='center-panel'>
+        <div class="container" ui-view="main"></div>
+      </div>
+      <div class='right-panel'>
+        <div></div>
       </div>
     </div>
 
-    <div class="container" ui-view="main"></div>
   </body>
 </html>

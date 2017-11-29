@@ -1,1 +1,50 @@
 /*Common style file*/
+
+.container-fluid {
+  height: 100%;
+}
+.navbar-brand img {
+  width: 2%;
+}
+.left-panel {
+  position: absolute;
+  top: 5%;
+  height: 95%;
+  width: 30%;
+}
+.left-panel-sec1 {
+  position: relative;
+  top: 0%;
+  background-color: blue;
+  height: 30%;
+}
+.left-panel-sec2 {
+  top: 40%;
+  background-color: red;
+  height: 30%;
+}
+.left-panel-sec3 {
+  top: 70%;
+  background-color: green;
+  height: 30%;
+}
+.center-panel {
+  position: absolute;
+  width: 65%;
+  left: 32%;
+  top: 7%;
+  height: 90%;
+  background-color: yellow;
+  overflow-x: scroll;
+}
+.center-panel .container {
+  position: relative;
+}
+.right-panel {
+  position: absolute;
+  width: 2%;
+  right: 0%;
+  top: 7%;
+  height: 90%;
+  background-color: yellow;
+}
