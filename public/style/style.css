@@ -21,17 +21,17 @@
   position: relative;
   top: 0%;
   background-color: white;
-  height: 30%;
+  height: 20%;
 }
 .left-panel-sec2 {
   top: 40%;
   background-color: white;
-  height: 30%;
+  height: 35%;
 }
 .left-panel-sec3 {
   top: 70%;
   background-color: white;
-  height: 30%;
+  height: 35%;
 }
 .center-panel {
   position: absolute;
@@ -67,7 +67,6 @@
     align-items: flex-end;
     -webkit-align-items: flex-end;
 }
-
 .progress-bar-vertical .progress-bar {
   width: 100%;
   height: 100%;

@@ -2,8 +2,12 @@ angular
   .module('xpresso', [
     'xpresso.routes',
     'xpresso.config',
+    'xpresso.services',
+    'xpresso.controllers',
     'xpresso.home',
-    'xpresso.about'
+    'xpresso.about',
+    'ui.bootstrap',
+    'timer'
   ]);
 
 angular
@@ -11,6 +15,12 @@ angular
 
 angular
   .module('xpresso.config', []);
+
+angular
+  .module('xpresso.services', []);
+
+angular
+  .module('xpresso.controllers', []);
 
 angular
   .module('xpresso')

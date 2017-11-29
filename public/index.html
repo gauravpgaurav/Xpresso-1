@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="xpresso">
+<html ng-app='xpresso' ng-controller='AppController as app'>
   <head>
     <title>Xpresso - The meeting assistant</title>
 
@@ -17,6 +17,9 @@
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="bower_components/humanize-duration/humanize-duration.js"></script>
+    <script type="text/javascript" src="bower_components/moment/min/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-timer/dist/angular-timer.js"></script>
 
     <!-- JS files -->
 
@@ -24,6 +27,7 @@
 
     <script type="text/javascript" src="app/app.js"></script>
     <script type="text/javascript" src="app/app.conf.js"></script>
+    <script type="text/javascript" src="app/app.controller.js"></script>
 
     <script type="text/javascript" src="app/home/home.js"></script>
     <script type="text/javascript" src="app/home/home.conf.js"></script>
@@ -56,10 +60,16 @@
         <div class='left-panel-sec1'>
           <!-- Clock - timer -->
           <div class='h3 text-center left-panel-head'>Clock - Timer</div>
+          <div class="h2 row text-center">
+            <timer interval='1000' countdown='app.data.meeting_time'>{{hours}} : {{minutes}} : {{seconds}}</timer>
+          </div>
         </div>
         <div class='left-panel-sec2'>
           <!-- Topics pending panel -->
           <div class='h3 text-center left-panel-head'>Undiscussed</div>
+          <div class=''>
+            <span class='row' ng-repeat='topic in app.data.undiscussed_topics'>{{topic.name}}</span>
+          </div>
         </div>
         <div class='left-panel-sec3'>
           <!-- Topics finished panel -->
