@@ -15,7 +15,8 @@
     "express": "~4.5.1",
     "http-server": "^0.10.0",
     "method-override": "~2.0.2",
-    "mongoose": "~3.8.0"
+    "mongoose": "~4.4",
+    "package.json": "^2.0.1"
   },
   "devDependencies": {}
 }
