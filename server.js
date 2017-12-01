@@ -40,6 +40,11 @@ var query = {"empId":"12345"};
 var newData = {"password":"abcd"};
 
 //users.createUser(data);
-users.findUser(model, query);
+users.connect(function(conn_result){
+      users.findUser(model, query, function(result){
+            console.log(result);
+        });
+});
+
 //users.deleteUser(model, query);
 //users.updateUser(model, query, newData);

@@ -9,67 +9,66 @@ var db = require('../../config/db');
 
 function userDAO() {
     
-    this.connect = function() {
+    this.connect = function(callback) {
         mongoose.connect(db.url);
-        mongoose.connection.on('connected', function(){
-            console.log('MongoDb successfully connected !');
+        mongoose.connection.on('connected', function(err, res){
+            if (err) {
+                callback(err);
+            } else {
+                console.log('MongoDb successfully connected !');
+                callback(res);
+            }
         });
+        callback();
     }
     
-    this.disconnect = function() {
-        mongoose.disconnect(db.url);
-        mongoose.connection.off('connected', function(){
-            console.log('MongoDb successfully disconnected !');
-        });
-    }
-    
-    this.createUser = function(userData) {
-        this.connect();
+    this.createUser = function(userData, callback) {
         mongoose.connection.on('connected', function(){
             userData.save(function(err){
                 if(err) {
-                    throw err;
+                    callback(err);
                 } else {
                     console.log('User successfully created!');
+                    callback(null);
                 }
             }); 
         });
     }
     
-    this.findUser = function(userModel, userQuery) {
-        this.connect();
+    this.findUser = function(userModel, userQuery, callback) {
         mongoose.connection.on('connected', function(){
             userModel.find(userQuery, function(err, user) {
                 if (err) {
-                    throw err; 
+                    callback(err); 
                 } else {
-                    console.log('User successfully found!\n', user); 
+                    console.log('User successfully found!\n');
+                    callback(user);
                 }             
             });
         });
     }
     
-    this.updateUser = function(userModel, userQuery, newUserData) {
-        this.connect();
+    this.updateUser = function(userModel, userQuery, newUserData, callback) {
         mongoose.connection.on('connected', function(){
-            userModel.findOneAndUpdate(userQuery, newUserData, function(err) {
+            userModel.findOneAndUpdate(userQuery, newUserData, function(err, user) {
                 if (err) {
-                    throw err; 
+                    callback(err); 
                 } else {
-                    console.log('User successfully updated!');   
+                    console.log('User successfully updated!');  
+                    callback(user);
                 }             
             });
         });
     }
     
     this.deleteUser = function(userModel, userQuery) {
-        this.connect();
         mongoose.connection.on('connected', function(){
             userModel.remove(userQuery, function(err) {
                 if (err) {
-                    throw err; 
+                    callback(err); 
                 } else {
-                    console.log('User successfully deleted!');   
+                    console.log('User successfully deleted!'); 
+                    callback(null);
                 }             
             });
         });
