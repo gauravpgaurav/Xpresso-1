@@ -7,7 +7,8 @@ angular
     'xpresso.home',
     'xpresso.about',
     'ui.bootstrap',
-    'timer'
+    'timer',
+    '720kb.datepicker'
   ]);
 
 angular

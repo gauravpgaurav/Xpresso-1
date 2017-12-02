@@ -11,6 +11,7 @@
     "angular-timer": "^1.3.5",
     "moment": "^2.19.3",
     "humanize-duration": "^3.12.0",
-    "watson-speech": "^0.34.1"
+    "watson-speech": "^0.34.1",
+    "angularjs-datepicker": "^2.1.23"
   }
 }
