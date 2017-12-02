@@ -11,7 +11,7 @@ var methodOverride = require('method-override');
 var db = require('./config/db');
 
 var port = process.env.PORT || 8080; // set our port
-mongoose.connect(db.url); // connect to our mongoDB database (commented out after you enter in your own credentials)
+// mongoose.connect(db.url); // connect to our mongoDB database (commented out after you enter in your own credentials)
 
 // get all data/stuff of the body (POST) parameters
 app.use(bodyParser.json()); // parse application/json 
@@ -30,16 +30,21 @@ console.log('Magic happens on port ' + port); 			// shoutout to the user
 exports = module.exports = app; 						// expose app
 console.log(db.url);
 
-mongoose.connection.on('connected', function(){
-    console.log('Mongoose connected to ' + db.url);
-    var model = require('./app/models/User');
-    var data = new model({"firstName": "Gaurav", "lastName":"Pant", "empId":"12345", "password": "qwerty", "meetingIds":["M121", "M123"]});
-    data.save(function(err){
-        if(err) {
-            console.log("Error");
-        } else {
-            console.log("Inserted");
-        }
-    });
+var userDAO = require('./app/services/userServices').userDAO;
+var users = new userDAO();
+
+var model = require('./app/models/User');
+var data = new model({"firstName": "Gaurav", "lastName":"Pant", "empId":"12345", "password": "qwerty", "meetingIds":["M121", "M123"]});
+
+var query = {"empId":"12345"};
+var newData = {"password":"abcd"};
+
+//users.createUser(data);
+users.connect(function(conn_result){
+      users.findUser(model, query, function(result){
+            console.log(result);
+        });
 });
 
+//users.deleteUser(model, query);
+//users.updateUser(model, query, newData);

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="xpresso">
+<html ng-app='xpresso' ng-controller='AppController as app'>
   <head>
     <title>Xpresso - The meeting assistant</title>
 
@@ -14,13 +14,23 @@
 
     <!-- JS libraries -->
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="bower_components/watson-speech/dist/watson-speech.min.js"></script>
+
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="bower_components/humanize-duration/humanize-duration.js"></script>
+    <script type="text/javascript" src="bower_components/moment/min/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="bower_components/angular-timer/dist/angular-timer.js"></script>
 
     <!-- JS files -->
+
+    <script type="text/javascript" src="data.js"></script>
+
     <script type="text/javascript" src="app/app.js"></script>
     <script type="text/javascript" src="app/app.conf.js"></script>
+    <script type="text/javascript" src="app/app.service.js"></script>
+    <script type="text/javascript" src="app/app.controller.js"></script>
 
     <script type="text/javascript" src="app/home/home.js"></script>
     <script type="text/javascript" src="app/home/home.conf.js"></script>
@@ -45,35 +55,42 @@
         <div class='col-md-1 navbar-brand btn text-center'>
           <span href ui-sref="about"><i class="fa fa-info-circle"></i> What is it?</span>
         </div>
-        <div class='col-md-7'></div>
+        <div class='col-md-6'></div>
+        <div class='col-md-1 btn text-center' ng-class="{'record-on': app.status.is_recording}" ng-click='app.click_record()'>Recording</div>
         <div class='col-md-1 navbar-brand btn text-center'>Summary</div>
         <div class='col-md-1 navbar-brand btn text-center'>Close</div>
       </div>
       <div class='left-panel'>
         <div class='left-panel-sec1'>
           <!-- Clock - timer -->
-          <div class='h1 text-center'>Clock - Timer</div>
+          <div class='h3 text-center left-panel-head'>Clock - Timer</div>
+          <div class="h2 row text-center">
+            <timer interval='1000' countdown='app.data.meeting_time'>{{hours}} : {{minutes}} : {{seconds}}</timer>
+          </div>
         </div>
         <div class='left-panel-sec2'>
           <!-- Topics pending panel -->
-          <div class='h1 text-center'>Topic Pending</div>
+          <div class='h3 text-center left-panel-head'>Undiscussed</div>
+          <div class=''>
+            <span class='row' ng-repeat='topic in app.data.undiscussed_topics'>{{topic.name}}</span>
+          </div>
         </div>
         <div class='left-panel-sec3'>
           <!-- Topics finished panel -->
-          <div class='h1 text-center'>Topic Finished</div>
+          <div class='h3 text-center left-panel-head'>Discussed</div>
         </div>
       </div>
       <div class='center-panel'>
         <div class="container" ui-view="main"></div>
       </div>
       <div class='right-panel'>
-		<div class="progress progress-bar-vertical">
-		  <div class="progress progress-bar-vertical">
-		    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height: 60%;">
-			  <span class="sr-only">60% Complete</span>
-		    </div>
-		  </div>
-		</div>
+    		<div class="progress progress-bar-vertical">
+    		  <div class="progress progress-bar-vertical">
+    		    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="height: 60%;">
+    			  <span class="sr-only">60% Complete</span>
+    		    </div>
+    		  </div>
+    		</div>
       </div>
 
   </body>

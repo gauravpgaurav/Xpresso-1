@@ -6,27 +6,35 @@
 .navbar-brand img {
   width: 2%;
 }
+.record-on {
+  color:red;
+}
 .left-panel {
   position: absolute;
   top: 5%;
   height: 95%;
   width: 30%;
 }
+.left-panel-head {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid black;
+}
 .left-panel-sec1 {
   position: relative;
   top: 0%;
-  background-color: blue;
-  height: 30%;
+  background-color: white;
+  height: 20%;
 }
 .left-panel-sec2 {
   top: 40%;
-  background-color: red;
-  height: 30%;
+  background-color: white;
+  height: 35%;
 }
 .left-panel-sec3 {
   top: 70%;
-  background-color: green;
-  height: 30%;
+  background-color: white;
+  height: 35%;
 }
 .center-panel {
   position: absolute;
@@ -34,7 +42,7 @@
   left: 32%;
   top: 7%;
   height: 90%;
-  background-color: yellow;
+  background-color: grey;
   overflow-x: scroll;
 }
 .center-panel .container {
@@ -46,7 +54,7 @@
   right: 0%;
   top: 7%;
   height: 90%;
-  background-color: yellow;
+  background-color: grey;
 }
 .progress-bar-vertical {
     width: 20px;
@@ -55,18 +63,18 @@
     float: right;
     position: absolute;
     right: 0%;
-	display: -webkit-box;
+	  display: -webkit-box;
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
     align-items: flex-end;
     -webkit-align-items: flex-end;
 }
-
 .progress-bar-vertical .progress-bar {
   width: 100%;
   height: 100%;
   -webkit-transition: height 0.6s ease;
   -o-transition: height 0.6s ease;
   transition: height 0.6s ease;
+  background-color: grey;
 }
