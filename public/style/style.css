@@ -6,6 +6,9 @@
 .navbar-brand img {
   width: 2%;
 }
+.record-on {
+  color:red;
+}
 .left-panel {
   position: absolute;
   top: 5%;

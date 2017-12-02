@@ -16,7 +16,9 @@
     "http-server": "^0.10.0",
     "method-override": "~2.0.2",
     "mongoose": "~4.4",
-    "package.json": "^2.0.1"
+    "package.json": "^2.0.1",
+    "vcap_services": "^0.3.4",
+    "watson-developer-cloud": "^2.42.0"
   },
   "devDependencies": {}
 }

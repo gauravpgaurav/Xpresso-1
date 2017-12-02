@@ -14,6 +14,8 @@
 
     <!-- JS libraries -->
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="bower_components/watson-speech/dist/watson-speech.min.js"></script>
+
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
@@ -27,6 +29,7 @@
 
     <script type="text/javascript" src="app/app.js"></script>
     <script type="text/javascript" src="app/app.conf.js"></script>
+    <script type="text/javascript" src="app/app.service.js"></script>
     <script type="text/javascript" src="app/app.controller.js"></script>
 
     <script type="text/javascript" src="app/home/home.js"></script>
@@ -52,7 +55,8 @@
         <div class='col-md-1 navbar-brand btn text-center'>
           <span href ui-sref="about"><i class="fa fa-info-circle"></i> What is it?</span>
         </div>
-        <div class='col-md-7'></div>
+        <div class='col-md-6'></div>
+        <div class='col-md-1 btn text-center' ng-class="{'record-on': app.status.is_recording}" ng-click='app.click_record()'>Recording</div>
         <div class='col-md-1 navbar-brand btn text-center'>Summary</div>
         <div class='col-md-1 navbar-brand btn text-center'>Close</div>
       </div>
