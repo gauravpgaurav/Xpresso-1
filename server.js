@@ -32,6 +32,8 @@ console.log(db.url);
 
 var userDAO = require('./app/services/userServices').userDAO;
 var users = new userDAO();
+var meetingDAO = require('./app/services/meetingServices').meetingDAO;
+var meetings = new meetingDAO();
 
 var model = require('./app/models/User');
 var data = new model({"firstName": "Gaurav", "lastName":"Pant", "empId":"12345", "password": "qwerty", "meetingIds":["M121", "M123"]});
@@ -40,11 +42,61 @@ var query = {"empId":"12345"};
 var newData = {"password":"abcd"};
 
 //users.createUser(data);
-users.connect(function(conn_result){
-      users.findUser(model, query, function(result){
-            console.log(result);
-        });
+//users.connect(function(conn_result){
+//      users.findUser(model, query, function(result){
+//            console.log(result);
+//        });
+//});
+//users.connect(function(conn_result){
+//    users.deleteUser(model, query, function(result){
+//           console.log(result);
+//           console.log(query);
+//        });
+//});
+//users.updateUser(model, query, newData);
+
+var meetingmodel = require('./app/models/meeting');
+var meetingdata = new meetingmodel({
+	"Date" : "hh:mm am",
+	"Start_time": "10:00 am",
+	"End_time": "12:00 pm",
+	"Duration": "2 Hours",
+	"Topics": [
+        { "Serial_No": "1",
+				"Topic_Name": "Tesla" },
+        { "Serial_No": "2",
+				"Topic_Name": "Porsche" },
+        { "Serial_No": "3",
+				"Topic_Name": "Ford" }
+    ],
+    "Undiscussed_Topics": ["1","2","3"],
+    "Transcription": [{
+        "Timestamps":[12.24, 13.32],
+        "Text": "one two three",
+        "Result_Index": 2
+    }, {
+        "Timestamps":[19.1, 19.59],
+        "Text": "testing",
+        "Result_Index": 3
+    }],
+    "Speakers": [{
+        "Timestamps":[12.24, 13.32],
+        "Speaker_Index": 0
+    }]
 });
 
-//users.deleteUser(model, query);
-//users.updateUser(model, query, newData);
+console.log(meetingdata);
+
+meetings.connect(function(conn_result){
+    meetings.createMeeting(meetingdata, function(result){
+       console.log(result);
+    });
+});
+
+//var query2 = {"Start_time" : "10:00 am"};
+//meetings.connect(function(conn_result){
+//    meetings.deleteMeeting(meetingmodel, query2, function(result){
+//       console.log(result);
+//       console.log(query2);
+//    });
+//});

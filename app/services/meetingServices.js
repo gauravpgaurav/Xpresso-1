@@ -10,7 +10,9 @@ var db = require('../../config/db');
 function meetingDAO() {
     
     this.connect = function(callback) {
-        mongoose.connect(db.url);
+        if (mongoose.connection.readyState == 0) {
+            mongoose.connect(db.url);
+        }
         mongoose.connection.on('connected', function(err, res){
             if (err) {
                 callback(err);
@@ -19,18 +21,17 @@ function meetingDAO() {
                 callback(res);
             }
         });
-        callback();
+        callback(null);
     }
     
     this.createMeeting = function(meetingData, callback) {
-        this.connect();
         mongoose.connection.on('connected', function(){
-            meetingData.save(function(err){
+            meetingData.save(function(err, meeting){
                 if(err) {
                     callback(err);
                 } else {
                     console.log('Meeting successfully created!');
-                    callback(null);
+                    callback(meeting);
                 }
             }); 
         });
@@ -64,12 +65,12 @@ function meetingDAO() {
     
     this.deleteMeeting = function(meetingModel, meetingQuery, callback) {
         mongoose.connection.on('connected', function(){
-            meetingModel.remove(meetingQuery, function(err) {
+            meetingModel.remove(meetingQuery, function(err, meeting) {
                 if (err) {
                     callback(err);
                 } else {
                     console.log('Meeting successfully deleted!');
-                    callback(null);
+                    callback(meeting);
                 }             
             });
         });

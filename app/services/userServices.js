@@ -10,7 +10,9 @@ var db = require('../../config/db');
 function userDAO() {
     
     this.connect = function(callback) {
-        mongoose.connect(db.url);
+        if (mongoose.connection.readyState == 0) {
+            mongoose.connect(db.url);
+        }
         mongoose.connection.on('connected', function(err, res){
             if (err) {
                 callback(err);
@@ -24,12 +26,12 @@ function userDAO() {
     
     this.createUser = function(userData, callback) {
         mongoose.connection.on('connected', function(){
-            userData.save(function(err){
+            userData.save(function(err, user){
                 if(err) {
                     callback(err);
                 } else {
                     console.log('User successfully created!');
-                    callback(null);
+                    callback(user);
                 }
             }); 
         });
@@ -61,14 +63,14 @@ function userDAO() {
         });
     }
     
-    this.deleteUser = function(userModel, userQuery) {
+    this.deleteUser = function(userModel, userQuery, callback) {
         mongoose.connection.on('connected', function(){
-            userModel.remove(userQuery, function(err) {
+            userModel.remove(userQuery, function(err, user) {
                 if (err) {
                     callback(err); 
                 } else {
                     console.log('User successfully deleted!'); 
-                    callback(null);
+                    callback(user);
                 }             
             });
         });
