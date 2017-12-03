@@ -11,6 +11,7 @@
 
     <!-- All styles files -->
     <link rel="stylesheet" type="text/css" href="style/style.css" />
+    <link rel="stylesheet" type="text/css" href="bower_components/angularjs-datepicker/dist/angular-datepicker.css"/>
 
     <!-- JS libraries -->
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
@@ -22,6 +23,7 @@
     <script type="text/javascript" src="bower_components/humanize-duration/humanize-duration.js"></script>
     <script type="text/javascript" src="bower_components/moment/min/moment-with-locales.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-timer/dist/angular-timer.js"></script>
+    <script type="text/javascript" src="bower_components/angularjs-datepicker/dist/angular-datepicker.js"></script>
 
     <!-- JS files -->
 
@@ -42,6 +44,20 @@
     <script type="text/javascript" src="app/about/services/about.service.js"></script>
     <script type="text/javascript" src="app/about/controllers/about.controller.js"></script>
 
+    <script type="text/javascript" src="app/addJoinMeeting/addJoinMeeting.js"></script>
+    <script type="text/javascript" src="app/addJoinMeeting/addJoinMeeting.conf.js"></script>
+    <script type="text/javascript" src="app/addJoinMeeting/services/addJoinMeeting.service.js"></script>
+    <script type="text/javascript" src="app/addJoinMeeting/controllers/addJoinMeeting.controller.js"></script>
+
+    <script type="text/javascript" src="app/setAgenda/setAgenda.js"></script>
+    <script type="text/javascript" src="app/setAgenda/setAgenda.conf.js"></script>
+    <script type="text/javascript" src="app/setAgenda/services/setAgenda.service.js"></script>
+    <script type="text/javascript" src="app/setAgenda/controllers/setAgenda.controller.js"></script>
+
+    <script type="text/javascript" src="app/login/login.js"></script>
+    <script type="text/javascript" src="app/login/login.conf.js"></script>
+    <script type="text/javascript" src="app/login/services/login.service.js"></script>
+    <script type="text/javascript" src="app/login/controllers/login.controller.js"></script>
     <base href="/" />
   </head>
   <body>
@@ -55,6 +71,18 @@
         <div class='col-md-1 navbar-brand btn text-center'>
           <span href ui-sref="about"><i class="fa fa-info-circle"></i> What is it?</span>
         </div>
+        <!-- added new -->
+        <div class='col-md-1 navbar-brand btn text-center'>
+          <span href ui-sref="addJoinMeeting"><i class="fa fa-info-circle"></i>addJoinMeeting</span>
+        </div>
+        <div class='col-md-1 navbar-brand btn text-center'>
+          <span href ui-sref="setAgenda"><i class="fa fa-info-circle"></i> setAgenda</span>
+        </div>
+        <div class='col-md-1 navbar-brand btn text-center'>
+          <span href ui-sref="login"><i class="fa fa-info-circle"></i> login</span>
+        </div>
+
+        <!-- end -->
         <div class='col-md-6'></div>
         <div class='col-md-1 btn text-center' ng-class="{'record-on': app.status.is_recording}" ng-click='app.click_record()'>Recording</div>
         <div class='col-md-1 navbar-brand btn text-center'>Summary</div>

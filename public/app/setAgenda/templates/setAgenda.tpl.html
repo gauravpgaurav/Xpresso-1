@@ -1,0 +1,63 @@
+<!-- On Click of ADD MEETING -->
+<div class="container-fluid">
+<!--  <div class='h1 text-center'>Add Agenda</div>  -->
+   <div class='row navbar navbar-default'>
+        <div class='col-md-1 navbar-brand text-center'>Add Agenda</div> 
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <label for="startDate">Start Date</label>
+        </div>
+        <div class="col-sm-4">
+            <datepicker>
+            <input ng-model="date" type="text"/>
+            </datepicker>
+        </div>
+    </div>
+    <div class="row">
+<!-- set time -->
+        <div class="col-sm-4">
+            <label for="startTime"> Start Time</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="time" id="exampleInput" name="input" ng-model="example.value"
+            placeholder="HH:mm:ss" min="00:00:00" max="23:59:59" required />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <label for="endTime"> End Time</label>
+        </div>
+        <div class="col-sm-4">
+            <input type="time" id="exampleInput" name="input" ng-model="example.value"
+            placeholder="HH:mm:ss" min="00:00:00" max="23:59:59" required />
+        </div>
+    </div>
+<!-- Add Agenda -->
+    <div class="row">
+        <div class="col-sm-4">
+            <label for="addAgenda"> Add Agenda </label>
+        </div>
+        <div class="col-sm-4">
+            <form ng-submit="vm.add()">
+               <input type="title" ng-model="vm.topics" placeholder="Enter the Topics" />
+               <input type="submit" value="Add Topic">
+            </form>
+        </div>
+    </div>
+    <div class="row" ng-repeat="x in vm.topicList">
+            <div class="col-sm-4"></div>
+            <div class="col-sm-4">
+                <input type="checkbox" ng-model="x.done"> 
+                <span ng-bind="x.todoText"></span>
+                <br>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+        <button ng-click="vm.remove()">Remove Topics</button>
+        </div>
+    </div>
+</div>

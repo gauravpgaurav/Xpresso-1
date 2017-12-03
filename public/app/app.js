@@ -6,8 +6,12 @@ angular
     'xpresso.controllers',
     'xpresso.home',
     'xpresso.about',
+    'xpresso.login',
+    'xpresso.setAgenda',
+    'xpresso.addJoinMeeting',
     'ui.bootstrap',
-    'timer'
+    'timer',
+    '720kb.datepicker'
   ]);
 
 angular
@@ -21,6 +25,9 @@ angular
 
 angular
   .module('xpresso.controllers', []);
+
+angular
+  .module('xpresso.login', []);
 
 angular
   .module('xpresso')
