@@ -1,0 +1,73 @@
+<!DOCTYPE>
+<html>
+<style>
+.istyle
+{
+    height:300px;
+    width:400px;
+    margin-top: 1px;
+    border:2px solid grey;
+}
+</style>
+<head>  
+</head>
+<body>
+<script type="text/javascript">
+var i=0;    
+
+var myVar=setInterval(Gsitesearch, 10000);
+var title=["Machine Learning", "Artificial Intelligence", "Data Mining", "Algorithms","HCI", "Computer Graphics","Physics", "Quantum Computing","Chemistry"]
+var link=["https://www.microsoft.com/en-us/research/research-area/artificial-intelligence/","http://www-formal.stanford.edu/jmc/whatisai/","https://www.microsoft.com/en-us/research/research-area/artificial-intelligence/","http://www-formal.stanford.edu/jmc/whatisai/","https://www.microsoft.com/en-us/research/research-area/artificial-intelligence/","http://www-formal.stanford.edu/jmc/whatisai/","https://www.microsoft.com/en-us/research/research-area/artificial-intelligence/","http://www-formal.stanford.edu/jmc/whatisai/","https://www.microsoft.com/en-us/research/research-area/artificial-intelligence/","http://www-formal.stanford.edu/jmc/whatisai/"]
+var description=["Artificial intelligence (AI, also machine intelligence, MI) is Intelligence displayed by machines, in contrast with the natural intelligence (NI) displayed by humans and other animals.","Artificial intelligence (AI, also machine intelligence, MI) is Intelligence displayed by machines.","Artificial intelligence (AI, also machine intelligence, MI) is Intelligence displayed by machines.","Artificial intelligence (AI, also machine intelligence, MI) is Intelligence displayed by machines.","Artificial intelligence (AI, also machine intelligence, MI) is Intelligence displayed by machines.","Artificial intelligence (AI, also machine intelligence, MI) is Intelligence displayed by machines.","Artificial intelligence (AI, also machine intelligence, MI) is Intelligence displayed by machines."]
+
+var i=0,j=1,k=2,l=3;
+function Gsitesearch(){
+ console.log(title[i]); 
+ if(title[i]!=null)
+ {  
+
+document.getElementById("I1").setAttribute("src","file:///home/ubuntu/Desktop/iframe_structure.html?q="+title[i]+"&link="+link[i]+"&description="+description[i]);
+i=i+4;
+console.log("i+4:"+i);
+}
+else
+i=0;
+if(title[j]!=null)
+{
+	document.getElementById("I2").setAttribute("src","file:///home/ubuntu/Desktop/iframe_structure.html?q="+title[j]+"&link="+link[j]+"&description="+description[j]);
+	j=j+4;
+
+}
+else
+j=1;
+if(title[k]!=null)
+{
+	document.getElementById("I3").setAttribute("src","file:///home/ubuntu/Desktop/iframe_structure.html?q="+title[k]+"&link="+link[k]+"&description="+description[k]);
+	k=k+4;
+}
+else
+k=2;
+if(title[l]!=null)
+{
+	document.getElementById("I4").setAttribute("src","file:///home/ubuntu/Desktop/iframe_structure.html?q="+title[l]+"&link="+link[l]+"&description="+description[l]);
+	l=l+4;
+}
+else
+l=3;
+}
+</script>
+<div align="center">
+    <iframe class="istyle" name="Iframe1" id="I1" align="center" ></iframe>
+    <iframe class="istyle" name="Iframe2" id="I2" align="center" ></iframe>
+</div>
+<div align="center">
+    <iframe class="istyle" name="Iframe3" id="I3" align="center" ></iframe>
+    <iframe class="istyle" name="Iframe4" id="I4" align="center" ></iframe>
+</div>
+<input name="q" type="hidden" />
+<button onclick=Gsitesearch()>Search</button> 
+</form>
+</body>
+</html>
+
+
