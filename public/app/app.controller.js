@@ -5,9 +5,9 @@
   .module('xpresso.controllers')
   .controller('AppController', AppController);
 
-  AppController.$inject = ['BaseAPI'];
+  AppController.$inject = ['BaseAPI', '$state'];
 
-  function AppController(BaseAPI) {
+  function AppController(BaseAPI, $state) {
     var vm = this;
 
     vm.data = {};
@@ -16,16 +16,22 @@
     vm.status.watson = {};
     vm.status.watson.stream = {};
 
-    vm.data.undiscussed_topics = undiscussed_topics;
+    vm.data.undiscussed_topics = [];
+    vm.data.discussed_topics = [];
     vm.data.meeting_time = Math.abs(meeting.end_time - meeting.start_time)/1000;
     vm.data.transcription = {};
 
-    vm.click_record = click_record;
+    vm.clickRecord = clickRecord;
+    vm.selectTopic = selectTopic;
+    vm.getUpdatedTopics = getUpdatedTopics;
+    vm.checkDiscussed = checkDiscussed;
+    vm.finishTopic = finishTopic;
 
     init();
 
     function init() {
       //start_watson();
+      getUpdatedTopics();
     }
 
     function start_watson() {
@@ -61,12 +67,55 @@
       }
     }
 
-    function click_record() {
+    function getUpdatedTopics() {
+      BaseAPI.getUpdatedTopics().then(
+        getUpdatedTopicsSuccessCallback,
+        getUpdatedTopicsFailureCallback
+      );
+
+      function getUpdatedTopicsSuccessCallback(response) {
+        var data = response.data;
+        vm.data.undiscussed_topics = data.undiscussed_topics;
+        vm.data.discussed_topics = data.discussed_topics;
+      }
+      function getUpdatedTopicsFailureCallback() {
+        console.log("Failed to load updated topics.");
+      }
+    }
+
+    function checkDiscussed(topic) {
+      return vm.data.discussed_topics.findIndex(function(elem) {
+        return elem.id == topic.id;
+      });
+    }
+
+    function clickRecord() {
       if (vm.status.is_recording == true) {
         vm.status.watson.stream.stop();
         vm.status.is_recording = false;
       } else {
         start_watson();
+      }
+    }
+
+    function selectTopic(topic) {
+      $state.go('topic', {topic: topic});
+    }
+
+    function finishTopic() {
+      BaseAPI.getUpdatedTopics().then(
+        getUpdatedTopicsSuccessCallback,
+        getUpdatedTopicsFailureCallback
+      );
+
+      function getUpdatedTopicsSuccessCallback(response) {
+        var data = response.data;
+        vm.data.undiscussed_topics = data.undiscussed_topics;
+        vm.data.discussed_topics = data.discussed_topics;
+        selectTopic(vm.data.undiscussed_topics[0]);
+      }
+      function getUpdatedTopicsFailureCallback() {
+        console.log("Failed to load updated topics.");
       }
     }
   }
