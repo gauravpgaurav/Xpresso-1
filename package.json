@@ -12,6 +12,7 @@
   "main": "server.js",
   "dependencies": {
     "body-parser": "~1.4.2",
+    "cheerio": "^1.0.0-rc.2",
     "express": "~4.5.1",
     "http-server": "^0.10.0",
     "method-override": "~2.0.2",
