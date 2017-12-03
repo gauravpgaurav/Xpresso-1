@@ -1,0 +1,8 @@
+<div class='center-panel-inner'>
+  <h1>Topic: {{vm.topic.id}} : {{vm.topic.name}}</h1>
+  <span>Description : {{vm.topic.description}}</span>
+
+  <div class='discussed-btn'>
+    <button class="btn" ng-click="vm.finishTopic()" ng-hide='vm.is_discussed'>Topic Discussed</button>
+  </div>
+</div>

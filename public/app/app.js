@@ -5,6 +5,7 @@ angular
     'xpresso.services',
     'xpresso.controllers',
     'xpresso.home',
+    'xpresso.topic',
     'xpresso.about',
     'xpresso.login',
     'xpresso.setAgenda',
@@ -25,9 +26,6 @@ angular
 
 angular
   .module('xpresso.controllers', []);
-
-angular
-  .module('xpresso.login', []);
 
 angular
   .module('xpresso')
