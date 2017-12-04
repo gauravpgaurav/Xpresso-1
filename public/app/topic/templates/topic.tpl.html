@@ -1,6 +1,22 @@
 <div class='center-panel-inner'>
-  <h1>Topic: {{vm.topic.id}} : {{vm.topic.name}}</h1>
-  <span>Description : {{vm.topic.description}}</span>
+  <div class='row'>
+    <h1>Topic: {{vm.topic.id}} : {{vm.topic.name}}</h1>
+  </div>
+  <div class='row'>
+    <span>Description : {{vm.topic.description}}</span>
+  </div>
+  
+  <br>
+  <div class=''>
+    <div align="center" class='row'>
+      <iframe class="search-frame" ng-src="{{vm.search_frames.frame1}}" ></iframe>
+      <iframe class="search-frame" ng-src="{{vm.search_frames.frame2}}" ></iframe>
+    </div>
+    <div align="center" class='row'>
+      <iframe class="search-frame" ng-src="{{vm.search_frames.frame3}}" ></iframe>
+      <iframe class="search-frame" ng-src="{{vm.search_frames.frame4}}" ></iframe>
+    </div>
+  </div>
 
   <div class='discussed-btn'>
     <button class="btn" ng-click="vm.finishTopic()" ng-hide='vm.is_discussed'>Topic Discussed</button>

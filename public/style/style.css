@@ -100,3 +100,10 @@
     padding-left: 12px;
   font-size: 14px;
 }
+.search-frame
+{
+    height:300px;
+    width:400px;
+    margin-top: 1px;
+    border:2px solid grey;
+}
