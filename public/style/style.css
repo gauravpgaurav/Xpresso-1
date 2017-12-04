@@ -42,11 +42,22 @@
   left: 32%;
   top: 7%;
   height: 90%;
-  background-color: grey;
-  overflow-x: scroll;
+  background-color: white;
+  border: 2px solid black;
 }
 .center-panel .container {
   position: relative;
+}
+.center-panel-inner {
+  position: absolute;
+  padding: 25px;
+  width: 100%;
+  height: 100%;
+}
+.center-panel-inner .discussed-btn {
+  position: absolute;
+  bottom: 5%;
+  right: 5%;
 }
 .right-panel {
   position: absolute;
@@ -54,11 +65,11 @@
   right: 0%;
   top: 7%;
   height: 90%;
-  background-color: grey;
+  background-color: white;
 }
 .progress-bar-vertical {
     width: 20px;
-    height: 90%;
+    height: 100%;
     margin-left: 95%;
     float: right;
     position: absolute;

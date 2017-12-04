@@ -15,67 +15,90 @@ function meetingDAO() {
         }
         mongoose.connection.on('connected', function(err, res){
             if (err) {
-                callback(err);
+                callback(err, res);
             } else {
                 console.log('MongoDb successfully connected !');
-                callback(res);
+                callback(err, res);
             }
         });
         callback(null);
     }
     
     this.createMeeting = function(meetingData, callback) {
-        mongoose.connection.on('connected', function(){
+        meetingData._id = generateID();
+        if(mongoose.connection.readyState == 1) {
             meetingData.save(function(err, meeting){
                 if(err) {
-                    callback(err);
+                    callback(err, meeting);
                 } else {
                     console.log('Meeting successfully created!');
-                    callback(meeting);
+                    callback(err, meeting);
                 }
             }); 
-        });
+        }
     }
     
     this.findMeeting = function(meetingModel, meetingQuery, callback) {
-        mongoose.connection.on('connected', function(){
+        if(mongoose.connection.readyState == 1) {
             meetingModel.find(meetingQuery, function(err, meeting) {
                 if (err) {
-                    callback(err); 
+                    callback(err, meeting); 
                 } else {
                     console.log('Meeting successfully found!\n');
-                    callback(meeting);
+                    callback(err, meeting);
                 }             
             });
-        });
+        }
     }
     
     this.updateMeeting = function(meetingModel, meetingQuery, newMeetingData, callback) {
-        mongoose.connection.on('connected', function(){
+        if(mongoose.connection.readyState == 1) {
             meetingModel.findOneAndUpdate(meetingQuery, newMeetingData, function(err, meeting) {
                 if (err) {
-                    callback(err); 
+                    callback(err, meeting); 
                 } else {
                     console.log('Meeting successfully updated!'); 
-                    callback(meeting);
+                    callback(err, meeting);
                 }             
             });
-        });
+        }
     }
     
     this.deleteMeeting = function(meetingModel, meetingQuery, callback) {
-        mongoose.connection.on('connected', function(){
+        if(mongoose.connection.readyState == 1) {
             meetingModel.remove(meetingQuery, function(err, meeting) {
                 if (err) {
-                    callback(err);
+                    callback(err, meeting);
                 } else {
                     console.log('Meeting successfully deleted!');
-                    callback(meeting);
+                    callback(err, meeting);
                 }             
             });
-        });
+        }
+    }
+    
+    this.insertMeeting = function(meetingModel, meetingQuery, field, newData, callback) {
+        console.log("{\"" + field + "\":" +  newData +"}");
+        var jsonFormat = JSON.parse("{\"" + field + "\":" +  newData +"}");
+        if(mongoose.connection.readyState == 1) {
+            meetingModel.findOneAndUpdate(meetingQuery, {$push: jsonFormat}, {safe: true, upsert: true}, function(err, meeting){
+                if (err) {
+                    callback(err, meeting);
+                } else {
+                    console.log('Meeting successfully updated!');
+                    callback(err, meeting);
+                } 
+            });
+        }
     }
 }
 
+function generateID() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    for (var i = 0; i < 6; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
+}
 
 module.exports.meetingDAO = meetingDAO;
