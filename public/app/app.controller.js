@@ -12,6 +12,7 @@
 
     vm.data = {};
     vm.status = {};
+    vm.status.progress = 5;
     vm.status.is_recording = false;
     vm.status.watson = {};
     vm.status.watson.stream = {};
@@ -112,6 +113,9 @@
         var data = response.data;
         vm.data.undiscussed_topics = data.undiscussed_topics;
         vm.data.discussed_topics = data.discussed_topics;
+
+        vm.status.progress = vm.data.discussed_topics.length/(vm.data.discussed_topics.length + vm.data.undiscussed_topics.length) * 100;
+
         selectTopic(vm.data.undiscussed_topics[0]);
       }
       function getUpdatedTopicsFailureCallback() {
