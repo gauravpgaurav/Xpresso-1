@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <title>Search Result</title>
+  </head>
+  <body>
+  <h1 id="title"></h1>  
+  <a id="url"></a>
+  <p id="des"> </p>
+    
+  <script language="JavaScript">
+    processUser();
+    function processUser()
+    {
+      var parameters = location.search.substring(1).split("&");
+
+      var temp = parameters[0].split("=");
+      l = unescape(temp[1]);
+      l = l.replace(/\"/g,'\'');
+      l = l.replace(/<h[1-3]/g,'<h4');
+      l = l.replace(/<\/h[1-3]/g,'</h4');
+      temp = parameters[1].split("=");
+      p = unescape(temp[1]);
+      temp = parameters[2].split("=");
+      d = unescape(temp[1]);
+      document.getElementById("url").innerHTML = p;
+      document.getElementById("url").href = p;
+      document.getElementById("title").innerHTML = l;
+      document.getElementById("des").innerHTML = d;
+    }
+  </script>
+  </body>
+</html>

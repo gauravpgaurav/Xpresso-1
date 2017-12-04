@@ -9,7 +9,9 @@
 
   function Topic($http) {
     var Topic = {
-      finishTopic: finishTopic
+      finishTopic: finishTopic,
+      getSearchKeywords: getSearchKeywords,
+      getSearchResult: getSearchResult,
     };
 
     return Topic;
@@ -22,6 +24,14 @@
       });
       // Update backend with the change
       return null;
+    }
+
+    function getSearchKeywords() {
+      return $http.get('/api/context');
+    }
+
+    function getSearchResult(keyword) {
+      return $http.get('/api/search?q=' + keyword);
     }
   }
 })();

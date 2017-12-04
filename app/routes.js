@@ -174,8 +174,15 @@ module.exports = function(app) {
     
   // frontend routes =========================================================
   // route to handle all angular requests
+  app.get('/public/common/staticframe', function(req, res) {
+    res.sendfile('./public/common/search_frame.html');
+  });
+  app.get('/public/common/searchframe', function(req, res) {
+    res.redirect('/public/common/staticframe?' + req.url.substr(req.url.indexOf('?') + 1));
+  });
   app.get('*', function(req, res) {
     res.sendfile('./public/index.html');
   });
 
 };
+ 
