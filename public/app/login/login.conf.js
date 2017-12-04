@@ -12,7 +12,7 @@
       url: '/login',
       views: {
         "main": {
-          controller: 'LoginController',
+          controller: 'LoginController as vm',
           templateUrl: 'app/login/templates/login.tpl.html'
         }
       }
