@@ -15,65 +15,65 @@ function userDAO() {
         }
         mongoose.connection.on('connected', function(err, res){
             if (err) {
-                callback(err);
+                callback(err, res);
             } else {
                 console.log('MongoDb successfully connected !');
-                callback(res);
+                callback(err, res);
             }
         });
-        callback();
+        callback(null);
     }
     
     this.createUser = function(userData, callback) {
-        mongoose.connection.on('connected', function(){
+        if(mongoose.connection.readyState == 1) {
             userData.save(function(err, user){
                 if(err) {
-                    callback(err);
+                    callback(err, user);
                 } else {
                     console.log('User successfully created!');
-                    callback(user);
+                    callback(err, user);
                 }
             }); 
-        });
+        }
     }
     
     this.findUser = function(userModel, userQuery, callback) {
-        mongoose.connection.on('connected', function(){
+        if(mongoose.connection.readyState == 1) {
             userModel.find(userQuery, function(err, user) {
                 if (err) {
-                    callback(err); 
+                    callback(err, user); 
                 } else {
                     console.log('User successfully found!\n');
-                    callback(user);
+                    callback(err, user);
                 }             
             });
-        });
+        }
     }
     
     this.updateUser = function(userModel, userQuery, newUserData, callback) {
-        mongoose.connection.on('connected', function(){
+        if(mongoose.connection.readyState == 1) {
             userModel.findOneAndUpdate(userQuery, newUserData, function(err, user) {
                 if (err) {
-                    callback(err); 
+                    callback(err, user); 
                 } else {
                     console.log('User successfully updated!');  
-                    callback(user);
+                    callback(err, user);
                 }             
             });
-        });
+        }
     }
     
     this.deleteUser = function(userModel, userQuery, callback) {
-        mongoose.connection.on('connected', function(){
+        if(mongoose.connection.readyState == 1) {
             userModel.remove(userQuery, function(err, user) {
                 if (err) {
-                    callback(err); 
+                    callback(err, user); 
                 } else {
                     console.log('User successfully deleted!'); 
-                    callback(user);
+                    callback(err, user);
                 }             
             });
-        });
+        }
     }
 }
 
