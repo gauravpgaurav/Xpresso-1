@@ -31,14 +31,15 @@ function getKeywords(transcript, callback) {
 
 	natural_language_understanding.analyze(parameters, function(err, response) {
 	    if (err) {
-    	    callback(err);
+    	    callback(err,response);
 	    }
     	else {
     			for(int i=0;i<response.entities.length();i++)
     		{
     			var search_key=search_key.concat(respone.entities.text[i]);
-        		callback(err, response);
+        		
     		}
+            callback(err, search_key);
     	}
 	});
 
