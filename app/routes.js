@@ -154,7 +154,23 @@ module.exports = function(app) {
         });
     });
   })
-  
+    
+  app.put('/api/meeting/insert', function(req, res) {
+      console.log('req.body.field', req.body.field);
+    meetings.connect(function(conn_result){
+        var field = String(req.body.field);
+        console.log('req.body.newData', req.body.newData);
+        console.log('JSON req.body.newData', JSON.stringify(req.body.newData));
+      meetings.insertMeeting(meetingModel, req.body.query, field, JSON.stringify(req.body.newData), function(err, meeting){
+            if (err) {
+                console.log('Error updating meeting: ', err);
+                res.status(500).send('Error updating meeting');
+                return;
+            }
+            res.send(JSON.stringify(meeting));
+        });
+    });
+  })
     
   // frontend routes =========================================================
   // route to handle all angular requests
