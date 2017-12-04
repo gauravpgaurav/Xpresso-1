@@ -12,7 +12,7 @@
       url: '/setAgenda',
       views: {
         "main": {
-          controller: 'setAgendaController as vm',
+          controller: 'SetAgendaController as vm',
           templateUrl: 'app/setAgenda/templates/setAgenda.tpl.html'
         }
       }

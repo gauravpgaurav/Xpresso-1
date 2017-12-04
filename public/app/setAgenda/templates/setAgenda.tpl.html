@@ -10,7 +10,7 @@
         </div>
         <div class="col-sm-4">
             <datepicker>
-            <input ng-model="date" type="text"/>
+            <input ng-model="vm.startDate" type="text"/>
             </datepicker>
         </div>
     </div>
@@ -20,7 +20,7 @@
             <label for="startTime"> Start Time</label>
         </div>
         <div class="col-sm-4">
-            <input type="time" id="exampleInput" name="input" ng-model="example.value"
+            <input type="time" id="startTime" name="startTime" ng-model="vm.startTime"
             placeholder="HH:mm:ss" min="00:00:00" max="23:59:59" required />
         </div>
     </div>
@@ -30,7 +30,7 @@
             <label for="endTime"> End Time</label>
         </div>
         <div class="col-sm-4">
-            <input type="time" id="exampleInput" name="input" ng-model="example.value"
+            <input type="time" id="endTime" name="endTime" ng-model="vm.endTime"
             placeholder="HH:mm:ss" min="00:00:00" max="23:59:59" required />
         </div>
     </div>
@@ -58,6 +58,12 @@
         <div class="col-sm-4"></div>
         <div class="col-sm-4">
         <button ng-click="vm.remove()">Remove Topics</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-4">
+        <button ng-click="vm.done()">Done</button>
         </div>
     </div>
 </div>

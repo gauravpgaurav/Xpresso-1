@@ -3,13 +3,23 @@
 
   angular
     .module('xpresso.setAgenda.services')
-    .factory('SetAgenda', Agenda);
+    .factory('Agenda', Agenda);
 
-  Agenda.$inject = ['$http', '$localstorage'];
+  Agenda.$inject = ['$http'];
 
-  function Agenda($http, $localstorage) {
-    var agenda = {};
+  function Agenda($http) {
+    var Agenda = {
+    	post:post
+    };
 
-    return agenda;
+    return Agenda;
+
+    function post(startDate,startTime,endTime,topicListFormatted) {
+
+        var param1 = {'Date':startDate,'Start_time':startTime,'End_time':endTime,'Topics':topicListFormatted};
+        console.log(param1);
+        return $http.post('/api/meeting/',param1);
   }
+}
 })();
+
