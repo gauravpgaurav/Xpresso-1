@@ -76,6 +76,21 @@ function meetingDAO() {
             });
         }
     }
+    
+    this.insertMeeting = function(meetingModel, meetingQuery, field, newData, callback) {
+        console.log("{\"" + field + "\":" +  newData +"}");
+        var jsonFormat = JSON.parse("{\"" + field + "\":" +  newData +"}");
+        if(mongoose.connection.readyState == 1) {
+            meetingModel.findOneAndUpdate(meetingQuery, {$push: jsonFormat}, {safe: true, upsert: true}, function(err, meeting){
+                if (err) {
+                    callback(err, meeting);
+                } else {
+                    console.log('Meeting successfully updated!');
+                    callback(err, meeting);
+                } 
+            });
+        }
+    }
 }
 
 function generateID() {
