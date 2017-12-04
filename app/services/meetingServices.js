@@ -25,6 +25,7 @@ function meetingDAO() {
     }
     
     this.createMeeting = function(meetingData, callback) {
+        meetingData._id = generateID();
         if(mongoose.connection.readyState == 1) {
             meetingData.save(function(err, meeting){
                 if(err) {
@@ -77,5 +78,12 @@ function meetingDAO() {
     }
 }
 
+function generateID() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    for (var i = 0; i < 6; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+    return text;
+}
 
 module.exports.meetingDAO = meetingDAO;

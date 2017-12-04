@@ -61,8 +61,9 @@ module.exports = function(app) {
   })
 
   app.get('/api/user/', function(req, res) {
-    users.connect(function(conn_result){
-      users.findUser(userModel, req.headers.query, function(err, user){
+      var query = JSON.parse(req.headers.query);
+      users.connect(function(conn_result){
+      users.findUser(userModel, query, function(err, user){
             if (err) {
                 console.log('Error retrieving user: ', err);
                 res.status(500).send('Error retrieving user');
@@ -101,7 +102,9 @@ module.exports = function(app) {
    
   // meeting model routes
   app.post('/api/meeting/', function(req, res) {
-      meetings.createMeeting(req.body.data, function(err, meeting){
+      meetings.connect(function(conn_result){
+          var meetingData = new meetingModel(req.body);
+          meetings.createMeeting(meetingData, function(err, meeting){
             if (err) {
                 console.log('Error creating meeting: ', err);
                 res.status(500).send('Error creating meeting');
@@ -109,10 +112,13 @@ module.exports = function(app) {
             }
             res.send(JSON.stringify(meeting));
         });
+      });
   })
     
   app.get('/api/meeting/', function(req, res) {
-      meetings.findMeeting(meetingModel, req.headers.query, function(err, meeting){
+      var query = JSON.parse(req.headers.query);
+      meetings.connect(function(conn_result){
+          meetings.findMeeting(meetingModel, query, function(err, meeting){
             if (err) {
                 console.log('Error retrieving meeting: ', err);
                 res.status(500).send('Error retrieving meeting');
@@ -120,6 +126,7 @@ module.exports = function(app) {
             }
             res.send(JSON.stringify(meeting));
         });
+      });
   })
     
   app.put('/api/meeting/', function(req, res) {
