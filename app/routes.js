@@ -37,11 +37,11 @@ module.exports = function(app) {
   app.get('/api/db/connection', function(req, res) {
     meetings.connect(function(err, conn_result){
         if (err) {
-                console.log('Error establishing connection: ', err);
-                res.status(500).send('Error establishing connection');
-                return;
-            }
-            res.send(conn_result);
+            console.log('Error establishing connection: ', err);
+            res.status(500).send('Error establishing connection');
+            return;
+        }
+        res.send(conn_result);
     });
   })
     
@@ -49,7 +49,7 @@ module.exports = function(app) {
   app.post('/api/user/', function(req, res) {
     users.connect(function(conn_result){
         var userData = new userModel(req.body);
-      users.createUser(userData, function(err, user){
+        users.createUser(userData, function(err, user){
             if (err) {
                 console.log('Error creating user: ', err);
                 res.status(500).send('Error creating user');
