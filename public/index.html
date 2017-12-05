@@ -24,6 +24,7 @@
     <script type="text/javascript" src="bower_components/moment/min/moment-with-locales.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-timer/dist/angular-timer.js"></script>
     <script type="text/javascript" src="bower_components/angularjs-datepicker/dist/angular-datepicker.js"></script>
+    <script type="text/javascript" src="bower_components/ngstorage/ngStorage.min.js"></script>
 
     <!-- JS files -->
 
@@ -64,6 +65,15 @@
     <script type="text/javascript" src="app/topic/services/topic.service.js"></script>
     <script type="text/javascript" src="app/topic/controllers/topic.controller.js"></script>
 
+    <script type="text/javascript" src="app/idGeneration/idGeneration.js"></script>
+    <script type="text/javascript" src="app/idGeneration/idGeneration.conf.js"></script>
+    <script type="text/javascript" src="app/idGeneration/services/idGeneration.service.js"></script>
+    <script type="text/javascript" src="app/idGeneration/controllers/idGeneration.controller.js"></script>
+
+    <script type="text/javascript" src="app/summary/summary.js"></script>
+    <script type="text/javascript" src="app/summary/summary.conf.js"></script>
+    <script type="text/javascript" src="app/summary/services/summary.service.js"></script>
+    <script type="text/javascript" src="app/summary/controllers/summary.controller.js"></script>
     <base href="/" />
   </head>
   <body>
@@ -106,7 +116,7 @@
           <!-- Topics pending panel -->
           <div class='h3 text-center left-panel-head'>Undiscussed</div>
           <div class=''>
-            <span class='row' ng-repeat='topic in app.data.undiscussed_topics' ng-click="app.selectTopic(topic)">{{topic.name}}</span>
+            <span class='row' ng-repeat='topic in app.data.undiscussed_topics' ng-click="app.selectTopic(topic)">{{topic}}</span>
           </div>
         </div>
         <div class='left-panel-sec3'>

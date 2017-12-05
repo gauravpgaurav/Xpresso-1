@@ -5,9 +5,9 @@
   .module('xpresso.setAgenda.controllers')
   .controller('SetAgendaController', SetAgendaController);
 
-  SetAgendaController.$inject = ["Agenda"];
+  SetAgendaController.$inject = ["Agenda", '$localStorage'];
 
-  function SetAgendaController(Agenda) {
+  function SetAgendaController(Agenda,$localStorage) {
     var vm = this;
     vm.topicList = [];
     vm.add = function () 
@@ -44,7 +44,8 @@
       );
     
       function createMeetingSuccessCallback(response) {
-        console.log("Loged in successfully");
+        $localStorage.meetingID = response.data._id
+        console.log($localStorage.meetingID);
       }
 
       function createMeetingFailureCallback(){

@@ -12,7 +12,9 @@
     "moment": "^2.19.3",
     "humanize-duration": "^3.12.0",
     "watson-speech": "^0.34.1",
-    "angularjs-datepicker": "^2.1.23"
+    "angularjs-datepicker": "^2.1.23",
+    "angular-local-storage": "^0.7.1",
+    "ngstorage": "^0.3.11"
   },
   "resolutions": {
     "moment": "^2.19.3"
