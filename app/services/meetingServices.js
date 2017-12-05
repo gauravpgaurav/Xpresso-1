@@ -26,6 +26,7 @@ function meetingDAO() {
     
     this.createMeeting = function(meetingData, callback) {
         meetingData._id = generateID();
+        meetingData = populateUndiscussed_Topics(meetingData);
         if(mongoose.connection.readyState == 1) {
             meetingData.save(function(err, meeting){
                 if(err) {
@@ -99,6 +100,19 @@ function generateID() {
     for (var i = 0; i < 6; i++)
         text += possible.charAt(Math.floor(Math.random() * possible.length));
     return text;
+}
+
+function populateUndiscussed_Topics(meetingData) {
+    if (meetingData.Topics != null) {
+        var topicArray = meetingData.Topics;
+        var undiscussed_Topics = [];
+        topicArray.forEach(function(topic) {
+                           undiscussed_Topics.push(topic.Serial_No);
+                        
+                           });
+    meetingData.Undiscussed_Topics = undiscussed_Topics;
+    }
+    return meetingData;
 }
 
 module.exports.meetingDAO = meetingDAO;
