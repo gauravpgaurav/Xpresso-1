@@ -16,7 +16,7 @@
 
     function init(){
     	//Pick up discussed topics
-    	getSummaryDiscussedTopics();
+    	  getSummaryDiscussedTopics();
     	//Pick up undiscussed topics
         getSummaryUndiscussedTopics();
     }
@@ -31,24 +31,27 @@
 
 
     function getSummaryDiscussedTopicsSuccessCallback(response) {
-        console.log(response);
-    //    var data = response.data;
-        vm.discussedArray = response.data[0].Discussed_Topics;
-        //vm.data.undiscussed_topics = [];
-        //topicArray.forEach(function(topic){
-        //  vm.data.undiscussed_topics.push(topic.Topic_Name);
-        //});
+        var index=[];
+        index = response.data[0].Discussed_Topics;
+        console.log(index);
+        for(var i=0;i<index.length;i++)
+          {
+            for(var j=0;j<response.data[0].Topics.length;j++)
+            {
+            if(index[i] == response.data[0].Topics[j].Serial_No)
+            vm.discussedArray.push(response.data[0].Topics[j].Topic_Name);
+            }
+          }  
         console.log(vm.discussedArray);
-     //   vm.data.undiscussed_topics = data.undiscussed_topics;
-     //   vm.data.discussed_topics = data.discussed_topics;
         }
+
     function getSummaryDiscussedTopicsFailureCallback() {
         console.log("Failed to load updated topics.");
     }
 
     function getSummaryUndiscussedTopics() {
-      vm.meetingId=$localStorage.meetingID;
-      Summary.get(vm.meetingId).then(
+        vm.meetingId=$localStorage.meetingID;
+        Summary.get(vm.meetingId).then(
         getSummaryUndiscussedTopicsSuccessCallback,
         getSummaryUndiscussedTopicsFailureCallback
       );
@@ -58,7 +61,19 @@
 
     function getSummaryUndiscussedTopicsSuccessCallback(response) {
         console.log(response);
-        vm.undiscussedArray = response.data[0].Undiscussed_Topics;
+        var index=[];
+        index = response.data[0].Undiscussed_Topics;
+        console.log(index);
+        //index.forEach(indices)
+          for(var i=0;i<index.length;i++)
+          {
+            for(var j=0;j<response.data[0].Topics.length;j++)
+            {        
+
+            if(index[i] == response.data[0].Topics[j].Serial_No)
+            vm.undiscussedArray.push(response.data[0].Topics[j].Topic_Name);
+            }
+          }  
         console.log(vm.undiscussedArray);
         }
 

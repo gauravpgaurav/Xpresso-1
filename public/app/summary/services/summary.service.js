@@ -14,8 +14,8 @@
     return Summary;
 
     function get(meetingId) {
-    var param2 = {'_id': 'OQ8SJ8'};
-    //	var param2 = {'_id': meetingId};	OQ8SJ8
+      //    var param2 = {'_id': 'OQ8SJ8'};
+          	var param2 = {'_id': meetingId};
         return $http.get('/api/meeting/',{headers:{'query': JSON.stringify(param2)}});
 	}
   }

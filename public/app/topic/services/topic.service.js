@@ -23,6 +23,7 @@
         return t.id !== topic.id;
       });
       // Update backend with the change
+      console.log("Finish under topic");
       return null;
     }
 
