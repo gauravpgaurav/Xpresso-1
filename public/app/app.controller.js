@@ -5,9 +5,9 @@
   .module('xpresso.controllers')
   .controller('AppController', AppController);
 
-  AppController.$inject = ['BaseAPI', '$state','$localStorage'];
+  AppController.$inject = ['BaseAPI', '$state', '$localStorage', '$uibModal'];
 
-  function AppController(BaseAPI, $state,$localStorage) {
+  function AppController(BaseAPI, $state, $localStorage, $uibModal) {
     var vm = this;
 
     vm.data = {};
@@ -32,7 +32,12 @@
 
     function init() {
       //start_watson();
+      checkLogin();
       getUpdatedTopics();
+    }
+
+    function checkLogin() {
+
     }
 
     function start_watson() {
@@ -53,7 +58,9 @@
         //vm.status.watson.stream.setEncoding('utf8');
 
         vm.status.watson.stream.on('data', function(data) {
-          console.log('Data : ' + JSON.stringify(data));
+          for (var i in data.results) {
+              pushTranscription(data.results[i], data.result_index);
+          }
         });
 
         vm.status.watson.stream.on('error', function(err) {
@@ -65,6 +72,40 @@
 
       function getWatsonSTTTokenFailureCallback(){
         console.log("Failed to get the Watson API token");
+      }
+    }
+
+    function pushTranscription(result, index) {
+      if(result['final'] == true) {
+        var formatted_data = {};
+        formatted_data['Result_Index'] = index;
+        formatted_data['Text'] = result.alternatives[0].transcript;
+        formatted_data['Timestamps'] = [];
+        var min_ts = Number.MAX_SAFE_INTEGER, max_ts = -1;
+        for (var i in result.alternatives[0].timestamps) {
+          min_ts>result.alternatives[0].timestamps[i][1]?min_ts=result.alternatives[0].timestamps[i][1]:false;
+          min_ts>result.alternatives[0].timestamps[i][2]?min_ts=result.alternatives[0].timestamps[i][2]:false;
+
+          max_ts<result.alternatives[0].timestamps[i][1]?max_ts=result.alternatives[0].timestamps[i][1]:false;
+          max_ts<result.alternatives[0].timestamps[i][2]?max_ts=result.alternatives[0].timestamps[i][2]:false;
+        }
+        formatted_data['Timestamps'][0] = min_ts;
+        formatted_data['Timestamps'][1] = max_ts;
+
+        var req_body = {};
+        req_body.query = {};
+        req_body.query['_id'] = vm.meetingId;
+        req_body.newData = formatted_data;
+        req_body.field = "Transcription"
+
+        BaseAPI.sendTranscript(req_body).then(sendTrascriptSuccess, sendTrascriptFailure);
+
+        function sendTrascriptSuccess(response) {
+          console.log("Saved transcript");
+        }
+        function sendTrascriptFailure() {
+          console.log("Save transcript failure");
+        }
       }
     }
 

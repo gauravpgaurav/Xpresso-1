@@ -9,6 +9,7 @@ angular
     'xpresso.topic',
     'xpresso.about',
     'xpresso.login',
+    'xpresso.join',
     'xpresso.setAgenda',
     'xpresso.addJoinMeeting',
     'xpresso.idGeneration',

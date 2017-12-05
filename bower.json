@@ -17,6 +17,7 @@
     "ngstorage": "^0.3.11"
   },
   "resolutions": {
-    "moment": "^2.19.3"
+    "moment": "^2.19.3",
+    "humanize-duration": "^3.12.0"
   }
 }
