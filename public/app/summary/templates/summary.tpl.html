@@ -1,2 +1,27 @@
-<div class="row">
-  </div>
+
+<div class="container-fluid">
+
+	<div class='row navbar navbar-default'>
+        <div class='col-md-1 navbar-brand text-center'>SUMMARY</div> 
+    </div>
+
+    <div class="row">
+    	<div class="col-sm-4">
+    		<label for="discussedTopic" class="text-center">Discussed Topic</label>
+    	</div>
+    	<div class="col-sm-4">
+    		<label for="undiscussedTopic" class="text-center">Undiscussed Topic</label>
+    	</div>
+    </div>
+    <div class="row">
+    	
+    	<div class="col-sm-4">
+    		<div class="row" ng-repeat="x in vm.discussedArray" class="text-center">{{x}}</div>
+    	</div>
+    	<div class="col-sm-4">
+    		<div class="row" ng-repeat="y in vm.undiscussedArray" class="text-center">{{y}}</div>
+    	</div>
+    </div>
+
+
+</div>

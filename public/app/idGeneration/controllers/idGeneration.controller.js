@@ -5,12 +5,11 @@
     .module('xpresso.idGeneration.controllers')
     .controller('IdController', IdController);
 
-  IdController.$inject = [];
+  IdController.$inject = ['$http','$localStorage'];
 
-  function IdController() {
+  function IdController($http,$localStorage) {
     var vm = this;
 
-    vm.
-
+    vm.meetingId=$localStorage.meetingID;
   }
 })();
