@@ -5,9 +5,9 @@
   .module('xpresso.controllers')
   .controller('AppController', AppController);
 
-  AppController.$inject = ['BaseAPI', '$state', '$localStorage', '$uibModal'];
+  AppController.$inject = ['BaseAPI', '$state', 'SocketIO', '$localStorage', '$uibModal'];
 
-  function AppController(BaseAPI, $state, $localStorage, $uibModal) {
+  function AppController(BaseAPI, $state, SocketIO, $localStorage, $uibModal) {
     var vm = this;
 
     vm.data = {};
@@ -198,7 +198,7 @@
     }
 
     function getUpdatedTopics() {
-      vm.meetingId=$localStorage.meetingID;
+      vm.meetingId = $localStorage.meetingID;
       BaseAPI.getUpdatedTopics(vm.meetingId).then(
         getUpdatedTopicsSuccessCallback,
         getUpdatedTopicsFailureCallback
@@ -241,7 +241,19 @@
     }
 
     function finishTopic() {
-      BaseAPI.getUpdatedTopics().then(
+
+      SocketIO.emit('finish:topic', {
+        undiscussed_topics: [],
+        disscussed_topics: []
+      }, function() {
+        console.log("Callback");
+      });
+
+      SocketIO.on('update:meeting', function(data) {
+        
+      });
+      /*vm.meetingId = $localStorage.meetingID;
+      BaseAPI.getUpdatedTopics(vm.meetingId).then(
         getUpdatedTopicsSuccessCallback,
         getUpdatedTopicsFailureCallback
       );
@@ -257,7 +269,7 @@
       }
       function getUpdatedTopicsFailureCallback() {
         console.log("Failed to load updated topics.");
-      }
+      }*/
     }
   }
 })();

@@ -17,7 +17,8 @@ angular
     'ui.bootstrap',
     'timer',
     '720kb.datepicker',
-    'ngStorage'
+    'ngStorage',
+    'btford.socket-io'
   ]);
 
 angular
