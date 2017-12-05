@@ -5,7 +5,7 @@
     .module('xpresso.join.services')
     .factory('Join', Join);
 
-  Login.$inject = ['$http'];
+  Join.$inject = ['$http'];
 
   function Join($http) {
     var join = {
