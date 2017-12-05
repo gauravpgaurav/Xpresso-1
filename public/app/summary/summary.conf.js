@@ -12,7 +12,7 @@
       url: '/summary',
       views: {
         "main": {
-          controller: 'SummaryController',
+          controller: 'SummaryController as vm',
           templateUrl: 'app/summary/templates/summary.tpl.html'
         }
       }

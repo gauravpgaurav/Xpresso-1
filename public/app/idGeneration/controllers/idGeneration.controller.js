@@ -5,12 +5,14 @@
     .module('xpresso.idGeneration.controllers')
     .controller('IdController', IdController);
 
-  IdController.$inject = ['$uibModalInstance'];
+  IdController.$inject = ['$http','$localStorage'];
 
-  function IdController($uibModalInstance) {
+  function IdController($http,$localStorage) {
+
     var vm = this;
     vm.later = false;
 
+    vm.meetingId=$localStorage.meetingID;
     vm.done = function() {
       $uibModalInstance.close();
     }
