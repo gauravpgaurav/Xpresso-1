@@ -5,12 +5,14 @@
     .module('xpresso.idGeneration.controllers')
     .controller('IdController', IdController);
 
-  IdController.$inject = [];
+  IdController.$inject = ['$uibModalInstance'];
 
-  function IdController() {
+  function IdController($uibModalInstance) {
     var vm = this;
+    vm.later = false;
 
-    vm.
-
+    vm.done = function() {
+      $uibModalInstance.close();
+    }
   }
 })();

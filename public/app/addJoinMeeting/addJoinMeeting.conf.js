@@ -12,7 +12,7 @@
       url: '/addJoinMeeting',
       views: {
         "main": {
-          controller: 'addjoinController',
+          controller: 'addjoinController as vm',
           templateUrl: 'app/addJoinMeeting/templates/addJoinMeeting.tpl.html'
         }
       }

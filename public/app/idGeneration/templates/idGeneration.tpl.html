@@ -1,9 +1,16 @@
-<!-- Geenrate ID, give option to Start Now or Later  -->
-
-
-<div class="container">
-      <label for="meetingID">Meeting ID: </label> {{vm.meetingId}}
-      <button type="button" class="btn btn-primary btn-lg btn-block" onclick="loadAddAgendaPage()">Start Now</button>
+<div class="">
+  <div class="modal-header">
+    <h3 class='modal-title'>Start Now/Later</h3>
+  </div>
+  <div class='modal-body'>
+    <div ng-hide='vm.later'>
+      <span class='h4'>Meeting ID: </span> {{vm.meetingId}}
+      <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="vm.done()">Start Now</button>
       <br>
-      <button type="button" class="btn btn-primary btn-lg btn-block"onclick="loadHomePage()">Later</button>
+      <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="vm.later=true">Later</button>
+    </div>
+    <div ng-hide='!vm.later'>
+      Please share and use this meeting ID to join back in future.
+    </div>
+  </div>
 </div>

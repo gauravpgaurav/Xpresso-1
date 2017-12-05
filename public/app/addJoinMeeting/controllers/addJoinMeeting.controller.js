@@ -5,22 +5,14 @@
     .module('xpresso.addJoinMeeting.controllers')
     .controller('addjoinController', AddJoinController);
 
-  AddJoinController.$inject = [];
+  AddJoinController.$inject = ['$uibModalInstance'];
 
-  function AddJoinController() {
+  function AddJoinController($uibModalInstance) {
     var vm = this;
 
-    vm.loadAddAgendaPage = function () 
-            {
-       // Redirect to set agenda page
-
+    vm.loadPage = function (param) {
+      $uibModalInstance.close(param);
     };
 
-    vm.loadHomePage = function(){
-
-    	///redirect to home page
-    	
-    };
-
-    }
+  }
 })();

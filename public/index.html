@@ -19,7 +19,7 @@
 
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap.js"></script>
+    <script type="text/javascript" src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
     <script type="text/javascript" src="bower_components/humanize-duration/humanize-duration.js"></script>
     <script type="text/javascript" src="bower_components/moment/min/moment-with-locales.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-timer/dist/angular-timer.js"></script>
@@ -112,37 +112,39 @@
         <div class='col-md-1 navbar-brand btn text-center'>Summary</div>
         <div class='col-md-1 navbar-brand btn text-center'>Close</div>
       </div>
-      <div class='left-panel'>
-        <div class='left-panel-sec1'>
-          <!-- Clock - timer -->
-          <div class='h3 text-center left-panel-head'>Clock - Timer</div>
-          <div class="h2 row text-center">
-            <timer interval='1000' countdown='app.data.meeting_time'>{{hours}} : {{minutes}} : {{seconds}}</timer>
+      <div ng-show='vm.meetingId'>
+        <div class='left-panel'>
+          <div class='left-panel-sec1'>
+            <!-- Clock - timer -->
+            <div class='h3 text-center left-panel-head'>Clock - Timer</div>
+            <div class="h2 row text-center">
+              <timer interval='1000' countdown='app.data.meeting_time'>{{hours}} : {{minutes}} : {{seconds}}</timer>
+            </div>
+          </div>
+          <div class='left-panel-sec2'>
+            <!-- Topics pending panel -->
+            <div class='h3 text-center left-panel-head'>Undiscussed</div>
+            <div class=''>
+              <span class='row' ng-repeat='topic in app.data.undiscussed_topics' ng-click="app.selectTopic(topic)">{{topic}}</span>
+            </div>
+          </div>
+          <div class='left-panel-sec3'>
+            <!-- Topics finished panel -->
+            <div class='h3 text-center left-panel-head'>Discussed</div>
+            <div class=''>
+              <span class='row' ng-repeat='topic in app.data.discussed_topics' ng-click="app.selectTopic(topic)">{{topic.name}}</span>
+            </div>
           </div>
         </div>
-        <div class='left-panel-sec2'>
-          <!-- Topics pending panel -->
-          <div class='h3 text-center left-panel-head'>Undiscussed</div>
-          <div class=''>
-            <span class='row' ng-repeat='topic in app.data.undiscussed_topics' ng-click="app.selectTopic(topic)">{{topic}}</span>
-          </div>
+        <div class='center-panel'>
+          <div class="" ui-view="main"></div>
         </div>
-        <div class='left-panel-sec3'>
-          <!-- Topics finished panel -->
-          <div class='h3 text-center left-panel-head'>Discussed</div>
-          <div class=''>
-            <span class='row' ng-repeat='topic in app.data.discussed_topics' ng-click="app.selectTopic(topic)">{{topic.name}}</span>
-          </div>
-        </div>
-      </div>
-      <div class='center-panel'>
-        <div class="" ui-view="main"></div>
-      </div>
-      <div class='right-panel'>
-        <div class="progress progress-bar-vertical">
+        <div class='right-panel'>
           <div class="progress progress-bar-vertical">
-            <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'height' : app.status.progress + '%' }">
-              <span class="sr-only">{{app.status.progress}}% Complete</span>
+            <div class="progress progress-bar-vertical">
+              <div class="progress-bar" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100" ng-style="{ 'height' : app.status.progress + '%' }">
+                <span class="sr-only">{{app.status.progress}}% Complete</span>
+              </div>
             </div>
           </div>
         </div>

@@ -27,7 +27,8 @@
     vm.getUpdatedTopics = getUpdatedTopics;
     vm.checkDiscussed = checkDiscussed;
     vm.finishTopic = finishTopic;
-    vm.meetingId=$localStorage.meetingID;
+    vm.firstname = $localStorage.firstname;
+    vm.meetingId = $localStorage.meetingID;
     init();
 
     function init() {
@@ -37,7 +38,94 @@
     }
 
     function checkLogin() {
+      vm.firstname = $localStorage.firstname;
+      if (!vm.firstname) {
+        var modalInstance = $uibModal.open({
+          templateUrl: 'app/login/templates/login.tpl.html',
+          controller: 'LoginController',
+          controllerAs: 'vm',
+          backdrop: 'static'
+        });
+        modalInstance.result.then(function () {
+          console.log("Login Modal closed");
+          checkMeeting();
+        }, function () {
+          console.log("Login Modal dismissed");
+        });
+      } else {
+        checkMeeting();
+      }
+    }
 
+    function checkMeeting() {
+      vm.meetingId = $localStorage.meetingID;
+
+      if (!vm.meetingId) {
+        var modalInstance = $uibModal.open({
+          templateUrl: 'app/addJoinMeeting/templates/addJoinMeeting.tpl.html',
+          controller: 'addjoinController',
+          controllerAs: 'vm',
+          backdrop: 'static',
+          keyboard: false
+        });
+        modalInstance.result.then(function (page) {
+          console.log("Add/join Modal closed");
+          if(page == 'Create') {
+            openSetAgendaModal();
+          } else if (page == 'Join') {
+            openJoinModal();
+          }
+        }, function () {
+          console.log("Add/join Modal dismissed");
+        });
+      }
+    }
+
+    function openSetAgendaModal() {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'app/setAgenda/templates/setAgenda.tpl.html',
+        controller: 'SetAgendaController',
+        controllerAs: 'vm',
+        backdrop: 'static',
+        keyboard: false
+      });
+      modalInstance.result.then(function (page) {
+        console.log("Set agenda modal closed");
+        openIdGenerationModal();
+      }, function () {
+        console.log("Set agenda Modal dismissed");
+      });
+    }
+    function openIdGenerationModal() {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'app/idGeneration/templates/idGeneration.tpl.html',
+        controller: 'IdController',
+        controllerAs: 'vm',
+        backdrop: 'static',
+        keyboard: false
+      });
+      modalInstance.result.then(function (page) {
+        console.log("Id generation modal closed");
+      }, function () {
+        console.log("Id generation Modal dismissed");
+      });
+    }
+    function openJoinModal() {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'app/join/templates/join.tpl.html',
+        controller: 'JoinController',
+        controllerAs: 'vm',
+        backdrop: 'static',
+        keyboard: false
+      });
+      modalInstance.result.then(function (page) {
+        console.log("Join meeting modal closed");
+        if (page == 'back') {
+          checkMeeting();
+        }
+      }, function () {
+        console.log("Join meeting Modal dismissed");
+      });
     }
 
     function start_watson() {

@@ -1,20 +1,25 @@
 <!-- Login Page View -->
-    <div>
-          <form name="form" role="form">
-            <div class="form-group" ng-class="{ 'has-error': form.firstname.$dirty && form.firstname.$error.required }">
+<div class="">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">Login</h3>
+    </div>
+    <div class='modal-body'>
+        <form name="form" role="form">
+        <div class="form-group" ng-class="{ 'has-error': form.firstname.$dirty && form.firstname.$error.required }">
             <label for="firstname">First Name</label>
             <input type="text" id="firstname" name="firstname" class="form-control" ng-model="vm.firstname" required />
             <span ng-show="form.firstname.$dirty && form.firstname.$error.required" class="help-block">First name is required</span>
-            </div>
+        </div>
 
-            <div class="form-group" ng-class="{ 'has-error': form.lastname.$dirty && form.lastname.$error.required }">
+        <div class="form-group" ng-class="{ 'has-error': form.lastname.$dirty && form.lastname.$error.required }">
             <label for="lastname">Last Name</label>
             <input type="text" id="lastname" name="lastname" class="form-control" ng-model="vm.lastname" required />
             <span ng-show="form.lastname.$dirty && form.lastname.$error.required" class="help-block">Last name is required</span>
-            </div>
-
-            <div class="form-actions">
-            <button type="submit" ng-click="vm.login()" ng-disabled="form.$invalid || LoginController.dataLoading" class="btn btn-primary">Login</button>
-            </div>
-          </form>
+        </div>
+        </form>
     </div>
+
+    <div class="form-actions modal-footer">
+        <button type="submit" ng-click="vm.login()" ng-disabled="form.$invalid || LoginController.dataLoading" class="btn btn-primary">Login</button>
+    </div>
+</div>

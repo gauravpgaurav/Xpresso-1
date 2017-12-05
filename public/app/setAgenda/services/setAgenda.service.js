@@ -19,7 +19,7 @@
         var param1 = {'Date':startDate,'Start_time':startTime,'End_time':endTime,'Topics':topicListFormatted};
         console.log(param1);
         return $http.post('/api/meeting/',param1);
+    }
   }
-}
 })();
 

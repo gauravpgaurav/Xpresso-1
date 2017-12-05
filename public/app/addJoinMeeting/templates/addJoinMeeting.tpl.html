@@ -1,8 +1,12 @@
-<!-- On Click to Login Navigate to Add/Join Meeting - write on click call function details-->
-
-<div class="container">
-      <button type="button" class="btn btn-primary btn-lg btn-block" onclick="loadAddAgendaPage()">Add a meeting</button>
-      <br>
-      <button type="button" class="btn btn-primary btn-lg btn-block"onclick="loadHomePage()">Join a meeting</button>
+<div class="">
+  <div class="modal-header">
+    <h3 class="modal-title" id="modal-title">Create/Join Meeting</h3>
+  </div>
+  <div class="modal-body">
+    <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="vm.loadPage('Create')">Add a meeting</button>
+    <br>
+    <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="vm.loadPage('Join')">Join a meeting</button>
+  </div>
+  
 </div>
 
