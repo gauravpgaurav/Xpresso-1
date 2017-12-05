@@ -25,5 +25,9 @@ module.exports = mongoose.model('Meeting', {
     Speakers: [{
         Timestamps:[{type: Number}, {type: Number}],
         Speaker_Index: {type: Number}
-    }]
+    }],
+    Search: {
+        Link: {type: String},
+        Lock: {type: Boolean, default: false}
+    }
 });

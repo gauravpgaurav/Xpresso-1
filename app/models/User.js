@@ -8,5 +8,6 @@ module.exports = mongoose.model('User', {
 	lastName : {type : String, default: ''},
 	empId : {type : String, default: '', unique: true},
 	password : {type : String, default: ''},
-	meetingIds : {type : Array}
+	meetingIds : {type : Array},
+    searchNotification : {type: Boolean, default: true}
 });
