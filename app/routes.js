@@ -110,7 +110,7 @@ module.exports = function(app) {
                 res.status(500).send('Error creating meeting');
                 return;
             }
-            res.send(jsSON.stringify(meeting));
+            res.send(JSON.stringify(meeting));
         });
       });
   })
