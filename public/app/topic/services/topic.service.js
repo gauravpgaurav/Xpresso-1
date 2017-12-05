@@ -27,8 +27,9 @@
       return null;
     }
 
-    function getSearchKeywords() {
-      return $http.get('/api/context');
+    function getSearchKeywords(meetingId) {
+      var param = {'_id': meetingId};
+      return $http.get('/api/meeting/keywords', {headers:{'query': JSON.stringify(param)}});
     }
 
     function getSearchResult(keyword) {

@@ -8,7 +8,11 @@
   SocketIO.$inject = ['$rootScope', 'socketFactory'];
 
   function SocketIO($rootScope, socketFactory) {
-    var socket = io.connect('http://localhost:8080');
+    var pathArray = location.href.split( '/' );
+    var protocol = pathArray[0];
+    var host = pathArray[2];
+    var url = protocol + '//' + host;
+    var socket = io.connect(url);
     return {
       on: function (eventName, callback) {
         socket.on(eventName, function () {  

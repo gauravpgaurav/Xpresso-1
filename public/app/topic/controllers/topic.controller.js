@@ -5,26 +5,28 @@
     .module('xpresso.topic.controllers')
     .controller('TopicController', TopicController);
 
-  TopicController.$inject = ['$interval', '$scope', '$state', '$stateParams', 'Topic'];
+  TopicController.$inject = ['$interval', '$scope', '$state', '$stateParams', 'Topic', '$localStorage'];
 
-  function TopicController($interval, $scope, $state, $stateParams, Topic) {
+  function TopicController($interval, $scope, $state, $stateParams, Topic, $localStorage) {
     var vm = this;
     var i = 0, j = 1, k = 2, l = 3;
     var base = window.location.protocol
         + "//" + window.location.host
         + "/" + "public/common/searchframe?";
-    var interval = 3000;
+    var interval = 10000;
     var interval_instance = undefined;
 
     vm.topic = $stateParams.topic;
     vm.is_discussed = false;
+    vm.meetingId = $localStorage.meetingID;
 
     vm.search_frames = {};
     vm.search_frames.frame1 = vm.search_frames.frame2 = base;
     vm.search_frames.frame3 = vm.search_frames.frame4 = base;
 
-    var search_keywords = ["Machine Learning", "Artificial Intelligence", "Data Mining",
-  "Algorithms", "HCI", "Computer Graphics", "Physics", "Quantum Computing", "Chemistry"];
+    /*var search_keywords = ["Machine Learning", "Artificial Intelligence", "Data Mining",
+  "Algorithms", "HCI", "Computer Graphics", "Physics", "Quantum Computing", "Chemistry"];*/
+    var search_keywords = [];
 
     vm.search_results = [];
 
@@ -47,9 +49,23 @@
       loadSearchResults(search_keywords);
     }
 
+    function getSearchKeywords() {
+      vm.meetingId = $localStorage.meetingID;
+      Topic.getSearchKeywords(vm.meetingId).then(getKeywordsSuccess, getKeywordsFailure);
+
+      function getKeywordsSuccess(response) {
+        search_keywords = response.data;
+        loadSearchResults(search_keywords);
+      }
+      function getKeywordsFailure() {
+        console.log("Failed to retrieve keywords");
+      }
+    }
+
     function startInterval() {
       interval_instance = $interval(function() {
         refreshFrames();
+        getSearchKeywords();
       }, interval);
     }
     function stopInterval() {

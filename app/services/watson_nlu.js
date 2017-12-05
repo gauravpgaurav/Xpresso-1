@@ -2,9 +2,8 @@ var watson = require('watson-developer-cloud');
 var vcapServices = require('vcap_services');
 var watson_conf = require('../../config/watson.js');
 var meetingDAO = require('./meetingServices').meetingDAO;
-var users = new userDAO();
 var meetings = new meetingDAO();
-var meetingModel = require('../../models/meeting');
+var meetingModel = require('../models/meeting');
 
 var NaturalLanguageUnderstandingV1 = require('watson-developer-cloud/natural-language-understanding/v1.js');
 var natural_language_understanding = new NaturalLanguageUnderstandingV1({
@@ -35,11 +34,11 @@ function getKeywords(transcript, callback) {
     	    callback(err,response);
 	    }
     	else {
-            var search_key = "";
+            var search_key = [];
     		for(var i=0;i<response.entities.length;i++)
     		{
 
-    			search_key=search_key + response.entities[i].text + " ";
+    			search_key.push(response.entities[i].text);
         		
     		}
             callback(err, search_key);
@@ -55,21 +54,20 @@ function processTranscript(query, callback) {
                 console.log('Error retrieving meeting: ', err);
                 callback(err, result);
             }
-              if (result.Transcription != null) {
+              if (result[0].Transcription != null) {
                   var completeTranscription = "";
-                  var transcriptionArray = result.Transcription;
+                  var transcriptionArray = result[0].Transcription;
                   transcriptionArray.forEach(function(transcript){
                      completeTranscription += (transcript.Text + " "); 
                   });
-                  
-                  getKeywords(completeTranscription, function(err, response)) {
+                  getKeywords(completeTranscription, function(err, response) {
                               if (err) {
                       console.log('Error retrieving keyword: ', err);
                       callback(err, response);
                   } else {
                       callback(err, response);
                   }
-              } 
+              })
           }
         });
       });

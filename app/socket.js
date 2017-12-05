@@ -12,16 +12,11 @@ module.exports = function (io) {
           meetings.updateMeeting(meetingModel, data.query, data.newData, function(err, meeting){
               if (err) {
                   console.log('Error updating meeting: ', err);
-                  callback(err, meeting)
               } else {
-                  callback(err, meeting);
               }
           });
       });
-      console.log('finish:topic');
-        socket.broadcast.emit('topics:updated', {}, function(){
-            console.log("Callback"); 
-        });
+      io.sockets.emit('topics:updated', {});
     });
   });
 /*

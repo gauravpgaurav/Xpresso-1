@@ -36,6 +36,10 @@
       //start_watson();
       checkLogin();
       getUpdatedTopics();
+
+      SocketIO.on('topics:updated', function(data) {
+        getUpdatedTopics();
+      });
     }
 
     function checkLogin() {
@@ -123,6 +127,8 @@
         console.log("Join meeting modal closed");
         if (page == 'back') {
           checkMeeting();
+        } else {
+          getUpdatedTopics();
         }
       }, function () {
         console.log("Join meeting Modal dismissed");
@@ -210,12 +216,18 @@
         vm.data.topicsArray = response.data[0].Topics;
         var indexU=[];
         indexU = response.data[0].Undiscussed_Topics;
+        vm.data.undiscussed_topics = [];
+        vm.data.discussed_topics = [];
         for(var i=0;i<indexU.length;i++)
           {
             for(var j=0;j<response.data[0].Topics.length;j++)
             {
-            if(indexU[i] == response.data[0].Topics[j].Serial_No)
-            vm.data.undiscussed_topics.push(response.data[0].Topics[j].Topic_Name);
+              if(indexU[i] == response.data[0].Topics[j].Serial_No) {
+                if(!vm.data.undiscussed_topics.includes(response.data[0].Topics[j].Topic_Name)) {
+                  vm.data.undiscussed_topics.push(response.data[0].Topics[j].Topic_Name);
+                }
+                break;
+              }
             }
           }
           var indexD=[];
@@ -224,8 +236,12 @@
           {
             for(var j=0;j<response.data[0].Topics.length;j++)
             {
-            if(indexD[i] == response.data[0].Topics[j].Serial_No)
-            vm.data.discussed_topics.push(response.data[0].Topics[j].Topic_Name);
+              if(indexD[i] == response.data[0].Topics[j].Serial_No) {
+                if (!vm.data.discussed_topics.includes(response.data[0].Topics[j].Topic_Name)) {
+                  vm.data.discussed_topics.push(response.data[0].Topics[j].Topic_Name);
+                }
+                break;
+              }
             }  
           }
         }
@@ -254,7 +270,7 @@
       $state.go('topic', {topic: topic});
     }
 
-    function finishTopic() {
+    function finishTopic(topic) {
 
       vm.meetingId=$localStorage.meetingID;
       vm.data.discussed_topics.push(topic);
@@ -267,9 +283,12 @@
           {
             for(var j=0;j<vm.data.topicsArray.length;j++)
             {
-            if(vm.data.undiscussed_topics[i] == vm.data.topicsArray[j].Topic_Name)
-              indexU.push(vm.data.topicsArray[j].Serial_No);
-              
+              if(vm.data.undiscussed_topics[i] == vm.data.topicsArray[j].Topic_Name) {
+                if (!indexU.includes(vm.data.topicsArray[j].Serial_No)) {
+                  indexU.push(vm.data.topicsArray[j].Serial_No);
+                }
+                break;
+              }
             }
           }  
           var indexD=[];
@@ -277,24 +296,26 @@
           {
             for(var j=0;j<vm.data.topicsArray.length;j++)
             {
-            if(vm.data.discussed_topics[i] == vm.data.topicsArray[j].Topic_Name)
-            indexD.push(vm.data.topicsArray[j].Serial_No);
+              if(vm.data.discussed_topics[i] == vm.data.topicsArray[j].Topic_Name){
+                if (!indexD.includes(vm.data.topicsArray[j].Serial_No)) {
+                  indexD.push(vm.data.topicsArray[j].Serial_No);
+                }
+                break;
+              }
             }
           }  
 
       SocketIO.emit('finish:topic', {
-        undiscussed_topics: [],
-        disscussed_topics: []
+        query: {'_id': vm.meetingId },
+        newData: {
+          Undiscussed_Topics: indexU,
+          Discussed_Topics: indexD
+        }
       }, function() {
-        console.log("Callback");
         console.log("Update request successful");
         vm.status.progress = vm.data.discussed_topics.length/(vm.data.discussed_topics.length + vm.data.undiscussed_topics.length) * 100;
 
         selectTopic(vm.data.undiscussed_topics[0]);
-      });
-
-      SocketIO.on('update:meeting', function(data) {
-        
       });
     }
   }
