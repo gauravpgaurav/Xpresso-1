@@ -10,7 +10,8 @@
   function BaseAPI($http, $q) {
     var api = {
       getWatsonSTTToken: getWatsonSTTToken,
-      getUpdatedTopics: getUpdatedTopics
+      getUpdatedTopics: getUpdatedTopics,
+      sendTranscript: sendTranscript
     };
 
     return api;
@@ -19,16 +20,13 @@
       return $http.get('/api/speech-to-text/token/');
     }
 
-    function getUpdatedTopics() {
-      var deferred = $q.defer();
-      setTimeout(function() {
-        var response = {};
-        response.data = {};
-        response.data.undiscussed_topics = undiscussed_topics;
-        response.data.discussed_topics = discussed_topics;
-        deferred.resolve(response);
-      }, 100);
-      return deferred.promise;
+    function getUpdatedTopics(meetingId) {
+      var param2 = {'_id': meetingId };
+      return $http.get('/api/meeting/', {headers: {'query': JSON.stringify(param2)}});
+    }
+
+    function sendTranscript(data) {
+      return $http.put('/api/meeting/insert/', data);
     }
   }
 })();
