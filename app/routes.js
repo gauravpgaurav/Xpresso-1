@@ -156,7 +156,6 @@ module.exports = function(app) {
   })
     
   app.put('/api/meeting/insert', function(req, res) {
-      console.log('req.body.field', req.body.field);
     meetings.connect(function(conn_result){
         var field = String(req.body.field);
         console.log('req.body.newData', req.body.newData);
