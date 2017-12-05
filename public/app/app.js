@@ -1,3 +1,4 @@
+
 angular
   .module('xpresso', [
     'xpresso.routes',
@@ -11,9 +12,12 @@ angular
     'xpresso.join',
     'xpresso.setAgenda',
     'xpresso.addJoinMeeting',
+    'xpresso.idGeneration',
+    'xpresso.summary',
     'ui.bootstrap',
     'timer',
-    '720kb.datepicker'
+    '720kb.datepicker',
+    'ngStorage'
   ]);
 
 angular
@@ -35,3 +39,4 @@ angular
 function run() {
   console.log("Brewing Xpresso");
 }
+

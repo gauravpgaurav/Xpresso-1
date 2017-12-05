@@ -5,9 +5,9 @@
   .module('xpresso.controllers')
   .controller('AppController', AppController);
 
-  AppController.$inject = ['BaseAPI', '$state'];
+  AppController.$inject = ['BaseAPI', '$state','$localStorage'];
 
-  function AppController(BaseAPI, $state) {
+  function AppController(BaseAPI, $state,$localStorage) {
     var vm = this;
 
     vm.data = {};
@@ -27,7 +27,7 @@
     vm.getUpdatedTopics = getUpdatedTopics;
     vm.checkDiscussed = checkDiscussed;
     vm.finishTopic = finishTopic;
-
+    vm.meetingId=$localStorage.meetingID;
     init();
 
     function init() {
@@ -69,16 +69,24 @@
     }
 
     function getUpdatedTopics() {
-      BaseAPI.getUpdatedTopics().then(
+      vm.meetingId=$localStorage.meetingID;
+      BaseAPI.getUpdatedTopics(vm.meetingId).then(
         getUpdatedTopicsSuccessCallback,
         getUpdatedTopicsFailureCallback
       );
 
       function getUpdatedTopicsSuccessCallback(response) {
-        var data = response.data;
-        vm.data.undiscussed_topics = data.undiscussed_topics;
-        vm.data.discussed_topics = data.discussed_topics;
-      }
+        console.log(response);
+    //    var data = response.data;
+        var topicArray = response.data[0].Topics;
+        vm.data.undiscussed_topics = [];
+        topicArray.forEach(function(topic){
+          vm.data.undiscussed_topics.push(topic.Topic_Name);
+        });
+        console.log(vm.data.undiscussed_topics);
+     //   vm.data.undiscussed_topics = data.undiscussed_topics;
+     //   vm.data.discussed_topics = data.discussed_topics;
+        }
       function getUpdatedTopicsFailureCallback() {
         console.log("Failed to load updated topics.");
       }
