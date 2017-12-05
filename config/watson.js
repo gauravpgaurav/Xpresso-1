@@ -6,6 +6,7 @@ var speech_to_text_cred = {
 var nlu_cred = {
 	'username': '43ae17d3-bbbc-4189-86a8-5ea495038924',
     'password': 'P2QVUeioQlJR',
+    'version_date': '2017-02-27'
 }
 
 module.exports.speech_to_text = speech_to_text_cred;
