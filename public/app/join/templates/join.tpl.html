@@ -1,14 +1,18 @@
-<!-- Login Page View -->
-    <div>
-          <form name="form" role="form">
-            <div class="form-group" ng-class="{ 'has-error': form.meetingid.$dirty && form.meetingid.$error.required }">
-            <label for="meetingid">Meeting ID</label>
-            <input type="text" id="meetingid" name="meetingid" class="form-control" ng-model="vm.meetingid" required />
-            <span ng-show="form.meetingid.$dirty && form.meetingid.$error.required" class="help-block">Meeting ID is required</span>
-            </div>
-
-            <div class="form-actions">
-            <button type="submit" ng-click="vm.join()" ng-disabled="form.$invalid || JoinController.dataLoading" class="btn btn-primary">Join</button>
-            </div>
-          </form>
+<div>
+    <div class='modal-header'>
+        <h3 class='modal-title'>Join Meeting</h3>
     </div>
+    <div class='modal-body'>
+        <form name="form" role="form">
+            <div class="form-group" ng-class="{ 'has-error': form.meetingid.$dirty && form.meetingid.$error.required }">
+                <label for="meetingid">Meeting ID</label>
+                <input type="text" id="meetingid" name="meetingid" class="form-control" ng-model="vm.meetingid" required />
+                <span ng-show="form.meetingid.$dirty && form.meetingid.$error.required" class="help-block">Meeting ID is required</span>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button ng-click="vm.back()" class="btn btn-primary">Back</button>
+        <button ng-click="vm.join('back')" ng-disabled="form.$invalid || JoinController.dataLoading" class="btn btn-primary">Join</button>
+    </div>
+</div>

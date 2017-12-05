@@ -1,6 +1,7 @@
 // modules =================================================
 var express        = require('express');
 var app            = express();
+var http           = require('http');
 var mongoose       = require('mongoose');
 var bodyParser     = require('body-parser');
 var methodOverride = require('method-override');
@@ -23,8 +24,17 @@ app.use(express.static(__dirname + '/public')); // set the static files location
 // routes ==================================================
 require('./app/routes')(app); // pass our application into our routes
 
+//Attach SocketIO
+var server = http.createServer(app);
+var io = require('socket.io').listen(server);
+
+
 // start app ===============================================
-app.listen(port);	
+
+server.listen(port);
+
+// Socket events
+require('./app/socket')(io);
 
 console.log('Magic happens on port ' + port); 			// shoutout to the user
 

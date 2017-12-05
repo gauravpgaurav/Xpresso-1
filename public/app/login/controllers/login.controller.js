@@ -4,12 +4,11 @@
   angular
   .module('xpresso.login.controllers')
   .controller('LoginController', LoginController);
-  LoginController.$inject = ["Login"];
+  LoginController.$inject = ["Login", '$localStorage', '$uibModalInstance'];
 
 // On Click "Login" function call
-  function LoginController(Login) {
+  function LoginController(Login, $localStorage, $uibModalInstance) {
     var vm = this;
-     //  $scope.master = {firstName:"John", lastName:"Doe"};
     
     vm.login = login;
 
@@ -20,14 +19,20 @@
       );
 
       function createUserSuccessCallback(response) {
+        $localStorage.firstname = vm.firstname;
+        $localStorage.lastname = vm.lastname;
         console.log("Loged in successfully");
-        }
+        vm.ok();
+      }
 
       function createUserFailureCallback(){
         console.log("Failed to Login");
       }
 
-      };
- 
-}
+    };
+
+    vm.ok = function () {
+      $uibModalInstance.close();
+    };
+  }
 })();
