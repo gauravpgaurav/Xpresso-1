@@ -77,8 +77,8 @@
     }
 
     function finishTopic() {
-      Topic.finishTopic(vm.topic);
-      $scope.$parent.app.finishTopic();
+    //  Topic.finishTopic(vm.topic);
+      $scope.$parent.app.finishTopic(vm.topic);
     }
 
     function refreshFrames(){

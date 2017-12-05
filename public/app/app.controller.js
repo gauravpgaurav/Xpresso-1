@@ -17,6 +17,7 @@
     vm.status.watson = {};
     vm.status.watson.stream = {};
 
+    vm.data.topicsArray=[];
     vm.data.undiscussed_topics = [];
     vm.data.discussed_topics = [];
     vm.data.meeting_time = Math.abs(meeting.end_time - meeting.start_time)/1000;
@@ -118,15 +119,27 @@
 
       function getUpdatedTopicsSuccessCallback(response) {
         console.log(response);
-    //    var data = response.data;
-        var topicArray = response.data[0].Topics;
-        vm.data.undiscussed_topics = [];
-        topicArray.forEach(function(topic){
-          vm.data.undiscussed_topics.push(topic.Topic_Name);
-        });
-        console.log(vm.data.undiscussed_topics);
-     //   vm.data.undiscussed_topics = data.undiscussed_topics;
-     //   vm.data.discussed_topics = data.discussed_topics;
+        vm.data.topicsArray = response.data[0].Topics;
+        var indexU=[];
+        indexU = response.data[0].Undiscussed_Topics;
+        for(var i=0;i<indexU.length;i++)
+          {
+            for(var j=0;j<response.data[0].Topics.length;j++)
+            {
+            if(indexU[i] == response.data[0].Topics[j].Serial_No)
+            vm.data.undiscussed_topics.push(response.data[0].Topics[j].Topic_Name);
+            }
+          }
+          var indexD=[];
+        indexD = response.data[0].Discussed_Topics;
+        for(var i=0;i<indexD.length;i++)
+          {
+            for(var j=0;j<response.data[0].Topics.length;j++)
+            {
+            if(indexD[i] == response.data[0].Topics[j].Serial_No)
+            vm.data.discussed_topics.push(response.data[0].Topics[j].Topic_Name);
+            }  
+          }
         }
       function getUpdatedTopicsFailureCallback() {
         console.log("Failed to load updated topics.");
@@ -134,8 +147,9 @@
     }
 
     function checkDiscussed(topic) {
+      console.log("checkDiscussed");
       return vm.data.discussed_topics.findIndex(function(elem) {
-        return elem.id == topic.id;
+        return elem == topic;
       });
     }
 
@@ -152,17 +166,41 @@
       $state.go('topic', {topic: topic});
     }
 
-    function finishTopic() {
-      BaseAPI.getUpdatedTopics().then(
+    function finishTopic(topic) {
+      vm.meetingId=$localStorage.meetingID;
+      vm.data.discussed_topics.push(topic);
+      vm.data.undiscussed_topics = vm.data.undiscussed_topics.filter(function(t) {
+        return t !== topic;
+      });
+
+      var indexU=[];
+        for(var i=0;i<vm.data.undiscussed_topics.length;i++)
+          {
+            for(var j=0;j<vm.data.topicsArray.length;j++)
+            {
+            if(vm.data.undiscussed_topics[i] == vm.data.topicsArray[j].Topic_Name)
+              indexU.push(vm.data.topicsArray[j].Serial_No);
+              
+            }
+          }  
+          var indexD=[];
+        for(var i=0;i<vm.data.discussed_topics.length;i++)
+          {
+            for(var j=0;j<vm.data.topicsArray.length;j++)
+            {
+            if(vm.data.discussed_topics[i] == vm.data.topicsArray[j].Topic_Name)
+            indexD.push(vm.data.topicsArray[j].Serial_No);
+            }
+          }  
+
+      BaseAPI.putUpdates(vm.meetingId,indexD,indexU).then(
         getUpdatedTopicsSuccessCallback,
         getUpdatedTopicsFailureCallback
       );
 
-      function getUpdatedTopicsSuccessCallback(response) {
-        var data = response.data;
-        vm.data.undiscussed_topics = data.undiscussed_topics;
-        vm.data.discussed_topics = data.discussed_topics;
-
+ function getUpdatedTopicsSuccessCallback(response) {
+       
+        console.log("Update request successful");
         vm.status.progress = vm.data.discussed_topics.length/(vm.data.discussed_topics.length + vm.data.undiscussed_topics.length) * 100;
 
         selectTopic(vm.data.undiscussed_topics[0]);

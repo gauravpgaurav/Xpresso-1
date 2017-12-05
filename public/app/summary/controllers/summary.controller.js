@@ -36,9 +36,12 @@
         console.log(index);
         for(var i=0;i<index.length;i++)
           {
-            if(index[i] == response.data[0].Topics[i].Serial_No)
-            vm.discussedArray.push(response.data[0].Topics[i].Topic_Name);
-          }
+            for(var j=0;j<response.data[0].Topics.length;j++)
+            {
+            if(index[i] == response.data[0].Topics[j].Serial_No)
+            vm.discussedArray.push(response.data[0].Topics[j].Topic_Name);
+            }
+          }  
         console.log(vm.discussedArray);
         }
 
@@ -47,8 +50,8 @@
     }
 
     function getSummaryUndiscussedTopics() {
-      vm.meetingId=$localStorage.meetingID;
-      Summary.get(vm.meetingId).then(
+        vm.meetingId=$localStorage.meetingID;
+        Summary.get(vm.meetingId).then(
         getSummaryUndiscussedTopicsSuccessCallback,
         getSummaryUndiscussedTopicsFailureCallback
       );
@@ -64,9 +67,13 @@
         //index.forEach(indices)
           for(var i=0;i<index.length;i++)
           {
-            if(index[i] == response.data[0].Topics[i].Serial_No)
-            vm.undiscussedArray.push(response.data[0].Topics[i].Topic_Name);
-          }
+            for(var j=0;j<response.data[0].Topics.length;j++)
+            {        
+
+            if(index[i] == response.data[0].Topics[j].Serial_No)
+            vm.undiscussedArray.push(response.data[0].Topics[j].Topic_Name);
+            }
+          }  
         console.log(vm.undiscussedArray);
         }
 
