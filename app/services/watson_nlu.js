@@ -48,8 +48,7 @@ function getKeywords(transcript, callback) {
 
 }
 
-function processTranscript(meetingID, callback) {
-    var query = { "_id": meetingID};
+function processTranscript(query, callback) {
     meetings.connect(function(conn_result){
           meetings.findMeeting(meetingModel, query, function(err, result){
             if (err) {

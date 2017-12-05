@@ -6,6 +6,7 @@ var users = new userDAO();
 var meetings = new meetingDAO();
 var meetingModel = require('./models/meeting');
 var userModel = require('./models/user');
+var watson_nlu = require('./services/watson_nlu');
 
 module.exports = function(app) {
 
@@ -170,6 +171,19 @@ module.exports = function(app) {
         });
     });
   })
+    
+  app.get('/api/meeting/keywords', function(req, res) {
+      var query = JSON.parse(req.headers.query);
+      watson_nlu.processTranscript(query, function(err, keywords) {
+          if (err) {
+              console.log('Error retrieving keywords: ', err);
+              res.status(500).send('Error retrieving keywords');
+              return; 
+          } else {
+              res.send(JSON.stringify(keywords));
+          }
+        });
+      });
     
   // frontend routes =========================================================
   // route to handle all angular requests
