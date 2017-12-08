@@ -36,7 +36,5 @@
       return $http.put('/api/meeting/', {body: {'query': JSON.stringify(param3),'newData':JSON.stringify(param4)}});
 
     }
-
-
   }
 })();

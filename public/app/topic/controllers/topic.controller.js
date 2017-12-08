@@ -13,7 +13,7 @@
     var base = window.location.protocol
         + "//" + window.location.host
         + "/" + "public/common/searchframe?";
-    var interval = 10000;
+    var interval = 5000;
     var interval_instance = undefined;
 
     vm.topic = $stateParams.topic;
@@ -33,6 +33,7 @@
     vm.finishTopic = finishTopic;
     vm.startInterval = startInterval;
     vm.stopInterval = stopInterval;
+    vm.openSearch = openSearch;
 
     init();
 
@@ -49,12 +50,20 @@
       loadSearchResults(search_keywords);
     }
 
+    function openSearch(link) {
+      $scope.$parent.app.openSearchPubModal(link);
+    }
+
     function getSearchKeywords() {
       vm.meetingId = $localStorage.meetingID;
       Topic.getSearchKeywords(vm.meetingId).then(getKeywordsSuccess, getKeywordsFailure);
 
       function getKeywordsSuccess(response) {
-        search_keywords = response.data;
+        var search_keywords_data = response.data;
+        function onlyUnique(value, index, self) {
+          return self.indexOf(value) === index;
+        }
+        search_keywords = search_keywords_data.filter(onlyUnique);
         loadSearchResults(search_keywords);
       }
       function getKeywordsFailure() {
@@ -84,7 +93,17 @@
         Topic.getSearchResult(keyword).then(getSearchResultsSuccess, getSearchResultsFailure);
 
         function getSearchResultsSuccess(response) {
-          vm.search_results.push(response.data);
+          var ifexist = false;
+          for (var i = 0; i < vm.search_results.length; i++) {
+            if (vm.search_results[i]['link'] == response.data['link']) {
+              ifexist = true;
+              break;
+            }
+          }
+          if(!ifexist) {
+            vm.search_results.push(response.data);
+            refreshFrames();
+          }
         }
         function getSearchResultsFailure() {
           console.log("Failed to retrieve results")
@@ -130,6 +149,27 @@
         + "&link=" + encodeURIComponent(link)
         + "&desc=" + encodeURIComponent(desc));
     }
+
+    function searchResultModal() {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'app/join/templates/join.tpl.html',
+        controller: 'JoinController',
+        controllerAs: 'vm',
+        backdrop: 'static',
+        keyboard: false
+      });
+      modalInstance.result.then(function (page) {
+        console.log("Join meeting modal closed");
+        if (page == 'back') {
+          checkMeeting();
+        } else {
+          getUpdatedTopics();
+        }
+      }, function () {
+        console.log("Join meeting Modal dismissed");
+      });
+    }
+
   }
 })();
 

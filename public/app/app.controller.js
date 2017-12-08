@@ -28,6 +28,7 @@
     vm.getUpdatedTopics = getUpdatedTopics;
     vm.checkDiscussed = checkDiscussed;
     vm.finishTopic = finishTopic;
+    vm.openSearchPubModal = openSearchPubModal;
     vm.firstname = $localStorage.firstname;
     vm.meetingId = $localStorage.meetingID;
     init();
@@ -134,6 +135,25 @@
         console.log("Join meeting Modal dismissed");
       });
     }
+    function openSearchPubModal(link) {
+      var modalInstance = $uibModal.open({
+        templateUrl: 'app/join/templates/searchmodal.tpl.html',
+        controller: 'SearchmodalController',
+        controllerAs: 'vm',
+        backdrop: 'static',
+        keyboard: false,
+        resolve: {
+          result: function () {
+            return link;
+          }
+        }
+      });
+      modalInstance.result.then(function () {
+        console.log("Search Publish modal closed");
+      }, function () {
+        console.log("Search Publish Modal dismissed");
+      });
+    }
 
     function start_watson() {
       BaseAPI.getWatsonSTTToken().then(
@@ -154,7 +174,10 @@
 
         vm.status.watson.stream.on('data', function(data) {
           for (var i in data.results) {
-              pushTranscription(data.results[i], data.result_index);
+            pushTranscription(data.results[i], data.result_index);
+          }
+          for (var i in data.speaker_labels) {
+            pushSpeakerLabels(data.speaker_labels[i]);
           }
         });
 
@@ -200,6 +223,31 @@
         }
         function sendTrascriptFailure() {
           console.log("Save transcript failure");
+        }
+      }
+    }
+
+    function pushSpeakerLabels(speaker_label) {
+      if (speaker_label['final'] == true) {
+        var formatted_data = {};
+        formatted_data['Speaker_Index'] = speaker_label.speaker;
+        formatted_data['Timestamps'] = [];
+        formatted_data['Timestamps'][0] = speaker_label.from;
+        formatted_data['Timestamps'][1] = speaker_label.to;
+
+        var req_body = {};
+        req_body.query = {};
+        req_body.query['_id'] = vm.meetingId;
+        req_body.newData = formatted_data;
+        req_body.field = "Speakers"
+
+        BaseAPI.sendTranscript(req_body).then(sendTrascriptSuccess, sendTrascriptFailure);
+
+        function sendTrascriptSuccess(response) {
+          console.log("Saved speaker labels");
+        }
+        function sendTrascriptFailure() {
+          console.log("Save speaker labels failure");
         }
       }
     }
@@ -268,6 +316,7 @@
 
     function selectTopic(topic) {
       $state.go('topic', {topic: topic});
+      vm.status.progress = vm.data.discussed_topics.length/(vm.data.discussed_topics.length + vm.data.undiscussed_topics.length) * 100;
     }
 
     function finishTopic(topic) {

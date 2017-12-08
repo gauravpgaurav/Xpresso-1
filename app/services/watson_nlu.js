@@ -41,6 +41,7 @@ function getKeywords(transcript, callback) {
     			search_key.push(response.entities[i].text);
         		
     		}
+            console.log(search_key);
             callback(err, search_key);
     	}
 	});

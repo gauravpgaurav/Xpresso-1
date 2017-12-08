@@ -83,6 +83,11 @@
     <script type="text/javascript" src="app/summary/summary.conf.js"></script>
     <script type="text/javascript" src="app/summary/services/summary.service.js"></script>
     <script type="text/javascript" src="app/summary/controllers/summary.controller.js"></script>
+
+    <script type="text/javascript" src="app/searchmodal/searchmodal.js"></script>
+    <script type="text/javascript" src="app/searchmodal/searchmodal.conf.js"></script>
+    <script type="text/javascript" src="app/searchmodal/services/searchmodal.service.js"></script>
+    <script type="text/javascript" src="app/searchmodal/controllers/searchmodal.controller.js"></script>
     <base href="/" />
   </head>
   <body>
@@ -93,18 +98,21 @@
         <div class='col-md-1 navbar-brand btn text-center'>
           <span href ui-sref="home"><i class="fa fa-home"></i> Home</span>
         </div>
-       
-        <!-- end -->
-        <div class='col-md-6'></div>
-        <div class='col-md-1 btn text-center' ng-class="{'record-on': app.status.is_recording}" ng-click='app.clickRecord()'>Recording</div>
-        <div class='col-md-1 navbar-brand btn text-center'>Summary</div>
-        <div class='col-md-1 navbar-brand btn text-center'>Close</div>
+        <div class='col-md-6 text-center navbar-brand btn text-center'>
+          <span title="Share this meeting ID for others to join this meeting">Meeting ID - {{app.meetingId}}</span>
+        </div>
+        <div class='col-md-1 btn pull-right' ng-click='app.clickRecord()'>
+            <i style="font-size: 32px;" ng-class="{'record-on': app.status.is_recording}" class='fa fa-microphone'></i>
+            <!-- <i style="font-size: 32px;" "{'record-on': app.status.is_recording}" class='fa fa-microphone'></i> -->
+        </div>
+        <div class='col-md-1 navbar-brand btn pull-right'>Close</div>
+        <div href ui-sref="summary" class='col-md-1 navbar-brand btn pull-right'>Summary</div>
       </div>
       <div ng-show='app.meetingId != null'>
         <div class='left-panel'>
           <div class='left-panel-sec1'>
             <!-- Clock - timer -->
-            <div class='h3 text-center left-panel-head'>Clock - Timer</div>
+            <div class='h3 text-center left-panel-head'>Timer</div>
             <div class="h2 row text-center">
               <timer interval='1000' countdown='app.data.meeting_time'>{{hours}} : {{minutes}} : {{seconds}}</timer>
             </div>
@@ -113,14 +121,14 @@
             <!-- Topics pending panel -->
             <div class='h3 text-center left-panel-head'>Undiscussed</div>
             <div class=''>
-              <span class='row' ng-repeat='topic in app.data.undiscussed_topics' ng-click="app.selectTopic(topic)">{{topic}}</span>
+              <div class='left-panel-topicnames' ng-repeat='topic in app.data.undiscussed_topics track by $index' ng-click="app.selectTopic(topic)"><span class='btn row h3'>{{$index + 1}}.  {{topic}}</span></div>
             </div>
           </div>
           <div class='left-panel-sec3'>
             <!-- Topics finished panel -->
             <div class='h3 text-center left-panel-head'>Discussed</div>
             <div class=''>
-              <span class='row' ng-repeat='topic in app.data.discussed_topics' ng-click="app.selectTopic(topic)">{{topic}}</span>
+              <div class='left-panel-topicnames' ng-repeat='topic in app.data.discussed_topics track by $index' ng-click="app.selectTopic(topic)"><span class='btn h3 row'>{{$index + 1}}.  {{topic}}</span></div>
             </div>
           </div>
         </div>

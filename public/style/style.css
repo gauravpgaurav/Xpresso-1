@@ -7,7 +7,11 @@
   width: 2%;
 }
 .record-on {
-  color:red;
+  color: red;
+  animation: blinker 1s linear infinite;
+}
+@keyframes blinker {
+  50% { opacity: 0.0; }
 }
 .left-panel {
   position: absolute;
@@ -19,6 +23,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   border-bottom: 2px solid black;
+  border-top: 2px solid black;
 }
 .left-panel-sec1 {
   position: relative;
@@ -94,16 +99,25 @@
   width: 30%;
   height: 34px;
   padding: 6px 12px;
-    padding-top: 6px;
-    padding-right: 12px;
-    padding-bottom: 6px;
-    padding-left: 12px;
+  padding-top: 6px;
+  padding-right: 12px;
+  padding-bottom: 6px;
+  padding-left: 12px;
   font-size: 14px;
 }
-.search-frame
-{
-    height:300px;
-    width:400px;
-    margin-top: 1px;
-    border:2px solid grey;
+.search-frame {
+  height:300px;
+  width:50%;
+  /*margin-top: 1px;*/
+}
+.search-frame iframe {
+  height:100%;
+  width:100%;
+  /*margin-top: 1px;*/
+  border:2px solid grey;
+  display: block;
+  z-index: 10;
+}
+.left-panel-topicnames {
+  border-bottom:1px solid grey;
 }

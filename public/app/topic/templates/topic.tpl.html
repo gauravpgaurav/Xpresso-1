@@ -1,16 +1,25 @@
 <div class='center-panel-inner'>
-  <div class='row'>
+  <div class='row text-center'>
     <h1>Topic: {{vm.topic}}</h1>
   </div>
   <br>
   <div class=''>
-    <div align="center" class='row'>
-      <iframe class="search-frame" ng-src="{{vm.search_frames.frame1}}" ></iframe>
-      <iframe class="search-frame" ng-src="{{vm.search_frames.frame2}}" ></iframe>
+    <div class='row'>
+      <div class="search-frame col-md-6" ng-click="vm.openSearch(vm.search_frames.frame1)">
+        <iframe class="" ng-src="{{vm.search_frames.frame1}}" ></iframe>
+      </div>
+      <div class="search-frame col-md-6" ng-click="vm.openSearch(vm.search_frames.frame2)">
+        <iframe class="" ng-src="{{vm.search_frames.frame2}}" ></iframe>
+      </div>
     </div>
+    <br>
     <div align="center" class='row'>
-      <iframe class="search-frame" ng-src="{{vm.search_frames.frame3}}" ></iframe>
-      <iframe class="search-frame" ng-src="{{vm.search_frames.frame4}}" ></iframe>
+      <div class="search-frame col-md-6" ng-click="vm.openSearch(vm.search_frames.frame3)">
+        <iframe class="" ng-src="{{vm.search_frames.frame3}}" ></iframe>
+      </div>
+      <div class="search-frame col-md-6" ng-click="vm.openSearch(vm.search_frames.frame4)">
+        <iframe class="" ng-src="{{vm.search_frames.frame4}}" ></iframe>
+      </div>
     </div>
   </div>
 
